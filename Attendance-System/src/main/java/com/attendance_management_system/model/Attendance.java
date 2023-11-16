@@ -1,5 +1,6 @@
 package com.attendance_management_system.model;
 
+import com.attendance_management_system.constants.DayType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +20,8 @@ public class Attendance {
 
     private LocalDate date;
 
-    private String dayType;
+    @Enumerated(EnumType.STRING)
+    private DayType dayType;
 
     @OneToMany(mappedBy = "attendance")
     private List<AttendanceDetails> attendanceDetails;

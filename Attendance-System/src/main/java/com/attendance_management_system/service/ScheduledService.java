@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 public interface ScheduledService {
     void createAttendanceLog();
 
-    void morningScheduledMethod() throws CustomException;
+    void morningRemainder() throws CustomException;
 
-    void eveningScheduledMethod() throws CustomException;
+    void eveningRemainder() throws CustomException;
 
     void autoCheckOut() throws CustomException;
 
+    void markAbsentIfNotPresent() throws CustomException;
 
 
 }

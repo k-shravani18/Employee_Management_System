@@ -1,5 +1,7 @@
 package com.attendance_management_system.service.serviceimpl;
 
+import com.attendance_management_system.constants.AttendanceStatus;
+import com.attendance_management_system.constants.DayType;
 import com.attendance_management_system.model.Attendance;
 import com.attendance_management_system.model.AttendanceDetails;
 import com.attendance_management_system.model.Employee;
@@ -45,20 +47,20 @@ public class ScheduledServiceImpl implements ScheduledService {
 
         attendance.setDate(date);
         if(checkHolidays()){
-            attendance.setDayType("Holiday");
+            attendance.setDayType(DayType.HOLIDAY);
         }
         else if(day.equals(DayOfWeek.SATURDAY) || day.equals(DayOfWeek.SUNDAY)){
-            attendance.setDayType("Weekend");
+            attendance.setDayType(DayType.WEEKEND);
         }
         else {
-            attendance.setDayType("Working Day");
+            attendance.setDayType(DayType.WORKING_DAY);
         }
         attendanceRepository.save(attendance);
     }
 
     @Override
     @Scheduled(cron = "0 50,20,50 9,10 * * MON-FRI")
-    public void morningScheduledMethod() throws CustomException {
+    public void morningRemainder() throws CustomException {
         try {
             if(!checkHolidays()) {
                 List<Employee> allEmployees = employeeRepository.findAll();
@@ -76,7 +78,7 @@ public class ScheduledServiceImpl implements ScheduledService {
 
     @Override
     @Scheduled(cron = "0 20,50 18,19 * * MON-FRI")
-    public void eveningScheduledMethod() throws CustomException {
+    public void eveningRemainder() throws CustomException {
         try {
             if(!checkHolidays()) {
                 List<Employee> allEmployees = employeeRepository.findAll();
@@ -115,6 +117,28 @@ public class ScheduledServiceImpl implements ScheduledService {
             throw new CustomException("Unable to fetch data", e);
         }
 
+    }
+
+    @Override
+    @Scheduled(cron = "0 59 23 * * MON-FRI")
+    public void markAbsentIfNotPresent() throws CustomException {
+        try {
+            List<Employee> allEmployees = employeeRepository.findAll();
+            for (Employee employee : allEmployees) {
+
+                AttendanceDetails attendanceDetails = getAttendanceDetails(employee);
+                if (attendanceDetails == null) {
+                    AttendanceDetails attendance = new AttendanceDetails();
+                    attendance.setStatus(AttendanceStatus.ABSENT);
+                    attendance.setAttendance(attendanceRepository.findByDate(LocalDate.now()));
+                    attendance.setEmployee(employee);
+                    attendanceDetailsRepository.save(attendance);
+                }
+            }
+
+        }catch (DataAccessException e) {
+            throw new CustomException("Unable to fetch data", e);
+        }
     }
 
     private AttendanceDetails getAttendanceDetails(Employee employee){

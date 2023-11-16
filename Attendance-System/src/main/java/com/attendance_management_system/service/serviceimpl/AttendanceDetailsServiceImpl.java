@@ -1,5 +1,6 @@
 package com.attendance_management_system.service.serviceimpl;
 
+import com.attendance_management_system.constants.AttendanceStatus;
 import com.attendance_management_system.model.Attendance;
 import com.attendance_management_system.model.AttendanceDetails;
 import com.attendance_management_system.model.Employee;
@@ -45,6 +46,7 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
                 attendanceDetails.setCheckInLocation(location);
                 attendanceDetails.setCheckInTime(LocalDateTime.now());
                 attendanceDetails.setAttendance(attendance);
+                attendanceDetails.setStatus(AttendanceStatus.PRESENT);
                 attendanceDetailsRepository.save(attendanceDetails);
             }
             else{

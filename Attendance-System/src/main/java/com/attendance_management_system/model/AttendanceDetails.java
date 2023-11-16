@@ -1,5 +1,6 @@
 package com.attendance_management_system.model;
 
+import com.attendance_management_system.constants.AttendanceStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +26,9 @@ public class AttendanceDetails {
     private String checkOutLocation;
 
     private long totalTime;
+
+    @Enumerated(EnumType.STRING)
+    private AttendanceStatus status;
 
     @OneToOne
     private Employee employee;
