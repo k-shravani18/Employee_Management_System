@@ -1,8 +1,8 @@
 package com.attendance_management_system.controller;
 
-import com.attendance_management_system.model.Department;
 import com.attendance_management_system.exceptions.CustomException;
-import com.attendance_management_system.service.DepartmentService;
+import com.attendance_management_system.model.HolidayCalender;
+import com.attendance_management_system.service.HolidayCalenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,39 +11,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/departments")
-public class DepartmentController {
+@RequestMapping("/api/holidays")
+public class HolidayCalenderController {
 
     @Autowired
-    private DepartmentService departmentService;
+    private HolidayCalenderService holidayService;
 
     @PostMapping("/add")
-    public ResponseEntity<Department> createDepartment(@RequestBody Department department) throws CustomException {
-        Department createdDepartment = departmentService.createDepartment(department);
-        return new ResponseEntity<>(createdDepartment, HttpStatus.CREATED);
+    public ResponseEntity<HolidayCalender> createHolidayCalender(@RequestBody HolidayCalender holiday) throws CustomException {
+        HolidayCalender createdHolidayCalender = holidayService.createHolidayCalender(holiday);
+        return new ResponseEntity<>(createdHolidayCalender, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{departmentId}")
-    public ResponseEntity<Department> getDepartment(@PathVariable Long departmentId) throws CustomException {
-        Department department = departmentService.getDepartmentById(departmentId);
-        return new ResponseEntity<>(department, HttpStatus.OK);
+    @GetMapping("/{holidayId}")
+    public ResponseEntity<HolidayCalender> getHolidayCalender(@PathVariable Long holidayId) throws CustomException {
+        HolidayCalender holiday = holidayService.getHolidayCalenderById(holidayId);
+        return new ResponseEntity<>(holiday, HttpStatus.OK);
     }
 
-    @GetMapping("/getDepartments")
-    public ResponseEntity<List<Department>> getAllDepartments() throws CustomException {
-        List<Department> departments = departmentService.getAllDepartments();
-        return new ResponseEntity<>(departments, HttpStatus.OK);
+    @GetMapping("/getHolidayCalenders")
+    public ResponseEntity<List<HolidayCalender>> getAllHolidayCalenders() throws CustomException {
+        List<HolidayCalender> holidays = holidayService.getAllHolidayCalenders();
+        return new ResponseEntity<>(holidays, HttpStatus.OK);
     }
 
-    @PutMapping("/update/{departmentId}")
-    public ResponseEntity<Department> updateDepartment(@PathVariable Long departmentId, @RequestBody Department department) throws CustomException {
-        Department updatedDepartment = departmentService.updateDepartment(departmentId, department);
-        return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
+    @PutMapping("/update/{holidayId}")
+    public ResponseEntity<HolidayCalender> updateHolidayCalender(@PathVariable Long holidayId, @RequestBody HolidayCalender holiday) throws CustomException {
+        HolidayCalender updatedHolidayCalender = holidayService.updateHolidayCalender(holidayId, holiday);
+        return new ResponseEntity<>(updatedHolidayCalender, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{departmentId}")
-    public ResponseEntity<Void> deleteDepartment(@PathVariable Long departmentId) throws CustomException {
-        departmentService.deleteDepartment(departmentId);
+    @DeleteMapping("/delete/{holidayId}")
+    public ResponseEntity<Void> deleteHolidayCalender(@PathVariable Long holidayId) throws CustomException {
+        holidayService.deleteHolidayCalender(holidayId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

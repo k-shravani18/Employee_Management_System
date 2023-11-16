@@ -1,17 +1,17 @@
 package com.attendance_management_system.service;
 
-import com.attendance_management_system.model.Department;
 import com.attendance_management_system.exceptions.CustomException;
+import com.attendance_management_system.model.HolidayCalender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public interface DepartmentService {
-    Department createDepartment(Department department) throws CustomException;
-    Department getDepartmentById(Long departmentId) throws CustomException;
+public interface HolidayCalenderService {
+    HolidayCalender createHolidayCalender(HolidayCalender holiday) throws CustomException;
+    HolidayCalender getHolidayCalenderById(Long holidayId) throws CustomException;
 
-    List<Department> getAllDepartments() throws CustomException;
-    Department updateDepartment(Long departmentId, Department department) throws CustomException;
-    void deleteDepartment(Long departmentId) throws CustomException;
+    List<HolidayCalender> getAllHolidayCalenders() throws CustomException;
+    HolidayCalender updateHolidayCalender(Long holidayId, HolidayCalender holiday) throws CustomException;
+    void deleteHolidayCalender(Long holidayId) throws CustomException;
 }

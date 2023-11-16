@@ -19,6 +19,8 @@ public class Attendance {
 
     private LocalDate date;
 
+    private String dayType;
+
     @OneToMany(mappedBy = "attendance")
     private List<AttendanceDetails> attendanceDetails;
 }

@@ -1,9 +1,9 @@
 package com.attendance_management_system.service.serviceimpl;
 
-import com.attendance_management_system.model.Department;
 import com.attendance_management_system.exceptions.CustomException;
-import com.attendance_management_system.repository.DepartmentRepository;
-import com.attendance_management_system.service.DepartmentService;
+import com.attendance_management_system.model.HolidayCalender;
+import com.attendance_management_system.repository.HolidayCalenderRepository;
+import com.attendance_management_system.service.HolidayCalenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -12,55 +12,55 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-public class DepartmentServiceImpl implements DepartmentService {
+public class HolidayCalenderServiceImpl implements HolidayCalenderService {
 
     @Autowired
-    private DepartmentRepository departmentRepository;
+    private HolidayCalenderRepository holidayRepository;
 
     @Override
-    public Department createDepartment(Department department) throws CustomException {
+    public HolidayCalender createHolidayCalender(HolidayCalender holiday) throws CustomException {
         try {
-            return departmentRepository.save(department);
+            return holidayRepository.save(holiday);
         } catch (DataAccessException e) {
-            throw new CustomException("Failed to create department.", e);
+            throw new CustomException("Failed to create holiday.", e);
         }
     }
 
     @Override
-    public Department getDepartmentById(Long departmentId) throws CustomException {
+    public HolidayCalender getHolidayCalenderById(Long holidayId) throws CustomException {
         try {
-            return departmentRepository.findById(departmentId)
-                    .orElseThrow(() -> new EntityNotFoundException("Department not found"));
+            return holidayRepository.findById(holidayId)
+                    .orElseThrow(() -> new EntityNotFoundException("HolidayCalender not found"));
         } catch (DataAccessException e) {
-            throw new CustomException("Failed to fetch department.", e);
+            throw new CustomException("Failed to fetch holiday.", e);
         }
     }
 
     @Override
-    public List<Department> getAllDepartments() throws CustomException {
+    public List<HolidayCalender> getAllHolidayCalenders() throws CustomException {
         try {
-            return departmentRepository.findAll();
+            return holidayRepository.findAll();
         } catch (DataAccessException e) {
-            throw new CustomException("Failed to fetch department.", e);
+            throw new CustomException("Failed to fetch holiday.", e);
         }
     }
 
     @Override
-    public Department updateDepartment(Long departmentId, Department department) throws CustomException {
+    public HolidayCalender updateHolidayCalender(Long holidayId, HolidayCalender holiday) throws CustomException {
         try {
-            department.setDepartmentId(departmentId);
-            return departmentRepository.save(department);
+            holiday.setHolidayId(holidayId);
+            return holidayRepository.save(holiday);
         } catch (DataAccessException e) {
-            throw new CustomException("Failed to update department.", e);
+            throw new CustomException("Failed to update holiday.", e);
         }
     }
 
     @Override
-    public void deleteDepartment(Long departmentId) throws CustomException {
+    public void deleteHolidayCalender(Long holidayId) throws CustomException {
         try {
-            departmentRepository.deleteById(departmentId);
+            holidayRepository.deleteById(holidayId);
         } catch (DataAccessException e) {
-            throw new CustomException("Failed to delete department.", e);
+            throw new CustomException("Failed to delete holiday.", e);
         }
     }
 }
