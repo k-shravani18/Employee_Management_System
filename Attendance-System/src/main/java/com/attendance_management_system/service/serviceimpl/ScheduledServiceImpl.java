@@ -38,7 +38,7 @@ public class ScheduledServiceImpl implements ScheduledService {
     @Autowired
     private EmailService emailService;
     @Override
-    @Scheduled(cron = "0 01 00 * * ?")
+    @Scheduled(cron = "0 20 16 * * ?")
     public void createAttendanceLog() {
 
         Attendance attendance = new Attendance();

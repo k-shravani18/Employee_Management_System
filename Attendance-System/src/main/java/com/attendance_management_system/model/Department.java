@@ -1,5 +1,6 @@
 package com.attendance_management_system.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class  Department {
     private String departmentName;
 
     @OneToMany(mappedBy = "department")
+    @JsonIgnore
     private List<Designation> designations;
 
 }

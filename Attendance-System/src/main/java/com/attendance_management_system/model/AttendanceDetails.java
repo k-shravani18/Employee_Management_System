@@ -1,6 +1,7 @@
 package com.attendance_management_system.model;
 
 import com.attendance_management_system.constants.AttendanceStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,8 +22,10 @@ public class AttendanceDetails {
 
     private LocalDateTime checkOutTime;
 
+    @Column(length = 500)
     private String checkInLocation;
 
+    @Column(length = 500)
     private String checkOutLocation;
 
     private long totalTime;
@@ -34,5 +37,6 @@ public class AttendanceDetails {
     private Employee employee;
 
     @ManyToOne
+    @JsonIgnore
     private Attendance attendance;
 }

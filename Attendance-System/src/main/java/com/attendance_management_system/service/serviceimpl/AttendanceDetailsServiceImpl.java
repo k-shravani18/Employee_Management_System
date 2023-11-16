@@ -1,6 +1,7 @@
 package com.attendance_management_system.service.serviceimpl;
 
 import com.attendance_management_system.constants.AttendanceStatus;
+import com.attendance_management_system.exceptions.EmployeeDoesNotExistsException;
 import com.attendance_management_system.model.Attendance;
 import com.attendance_management_system.model.AttendanceDetails;
 import com.attendance_management_system.model.Employee;
@@ -19,6 +20,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
@@ -38,24 +42,31 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
         try {
 
             Employee employee = employeeRepository.findByEmailId(email);
+            if(employee!= null){
             Attendance attendance = attendanceRepository.findByDate(LocalDate.now());
-            if(attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance) == null) {
+                if(attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance) == null) {
 
-                AttendanceDetails attendanceDetails = new AttendanceDetails();
-                attendanceDetails.setEmployee(employee);
-                attendanceDetails.setCheckInLocation(location);
-                attendanceDetails.setCheckInTime(LocalDateTime.now());
-                attendanceDetails.setAttendance(attendance);
-                attendanceDetails.setStatus(AttendanceStatus.PRESENT);
-                attendanceDetailsRepository.save(attendanceDetails);
+                    AttendanceDetails attendanceDetails = new AttendanceDetails();
+                    attendanceDetails.setEmployee(employee);
+                    attendanceDetails.setCheckInLocation(location);
+                    attendanceDetails.setCheckInTime(LocalDateTime.now());
+                    attendanceDetails.setAttendance(attendance);
+                    attendanceDetails.setStatus(AttendanceStatus.PRESENT);
+                    attendanceDetailsRepository.save(attendanceDetails);
+                }
+                else{
+                    throw new AlreadyCheckedInException("You have already checked in today");
+                }
             }
-            else{
-                throw new AlreadyCheckedInException("You have already checked in today");
+            else {
+                throw new EmployeeDoesNotExistsException("Employee Doesn't exists");
             }
         } catch (DataAccessException e) {
             throw new CustomException("Failed to perform check-in.", e);
         } catch (AlreadyCheckedInException e) {
             throw new RuntimeException("Oops! Your one time check in process for today was completed", e);
+        } catch (EmployeeDoesNotExistsException e) {
+            throw new RuntimeException("Employee Doesn't exist");
         }
     }
 
@@ -110,6 +121,36 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
                 return LocalDateTime.of(today, midnight);
             }
         } catch (DataAccessException e) {
+            throw new CustomException("Unable to fetch data", e);
+        }
+    }
+
+    @Override
+    public Map getAttendanceDetailsForEmployee(String email, LocalDate startDate, LocalDate endDate) throws CustomException {
+        try{
+            List<Attendance> attendances = attendanceRepository.findByDateBetween(startDate, endDate);
+            Employee employee = employeeRepository.findByEmailId(email);
+
+            Map<LocalDate, AttendanceDetails> dateListMap=new HashMap<>();
+            for(Attendance attendance: attendances){
+                dateListMap.put(attendance.getDate(),attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance));
+            }
+            return dateListMap;
+        }catch (DataAccessException e) {
+            throw new CustomException("Unable to fetch data", e);
+        }
+    }
+
+    @Override
+    public Map getAttendanceDetailsForDateRange(LocalDate startDate, LocalDate endDate) throws CustomException {
+        try{
+            List<Attendance> attendances = attendanceRepository.findByDateBetween(startDate, endDate);
+            Map<LocalDate,List<AttendanceDetails>> dateListMap=new HashMap<>();
+            for(Attendance attendance: attendances){
+                dateListMap.put(attendance.getDate(),attendanceDetailsRepository.findByAttendance(attendance));
+            }
+            return dateListMap;
+        }catch (DataAccessException e) {
             throw new CustomException("Unable to fetch data", e);
         }
     }
