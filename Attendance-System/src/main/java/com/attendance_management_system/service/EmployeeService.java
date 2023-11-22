@@ -15,4 +15,6 @@ public interface EmployeeService {
     List<Employee> getAllEmployees() throws CustomException;
     Employee updateEmployee(Long employeeId, Employee employee) throws CustomException;
     void deleteEmployee(Long employeeId) throws CustomException;
+
+    List<Employee> getAllReportingManagers() throws CustomException;
 }

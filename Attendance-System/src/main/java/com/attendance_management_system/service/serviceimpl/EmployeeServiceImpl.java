@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -59,6 +60,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public List<Employee> getAllReportingManagers() throws CustomException {
+        try {
+            return employeeRepository.findAll()
+                    .stream()
+                    .filter(employee -> employee.getIsReportingManager())
+                    .collect(Collectors.toList());
+        } catch (DataAccessException e) {
+            throw new CustomException("Failed to fetch reporting managers.", e);
+        }
+    }
+
+    @Override
     public Employee updateEmployee(Long employeeId, Employee employee) throws CustomException {
         try {
             employee.setEmployeeId(employeeId);
@@ -76,4 +89,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new CustomException("Failed to delete employee.", e);
         }
     }
+
+
 }

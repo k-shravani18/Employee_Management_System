@@ -41,6 +41,12 @@ public class EmployeeController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+    @GetMapping("/getReportingManagers")
+    public ResponseEntity<List<Employee>> getAllReportingManagers() throws CustomException {
+        List<Employee> employees = employeeService.getAllReportingManagers();
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
     @PutMapping("/update/{employeeId}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Long employeeId, @RequestBody Employee employee) throws CustomException {
         Employee updatedEmployee = employeeService.updateEmployee(employeeId, employee);
