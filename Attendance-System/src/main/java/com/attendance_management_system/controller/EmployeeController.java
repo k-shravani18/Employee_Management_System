@@ -76,7 +76,8 @@ public class EmployeeController {
      * @author Kamil Praseej
      */
     @PutMapping("/update/{email:.+}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable String email, @RequestBody Employee employee) throws CustomException {
+    public ResponseEntity<Employee> updateEmployee(
+            @PathVariable String email, @RequestBody Employee employee) throws CustomException {
         Employee updatedEmployee = employeeService.updateEmployee(email, employee);
         return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
     }
@@ -94,3 +95,4 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
+

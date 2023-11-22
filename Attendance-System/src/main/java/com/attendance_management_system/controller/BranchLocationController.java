@@ -25,7 +25,8 @@ public class BranchLocationController {
      * @author Kamil Praseej
      */
     @PostMapping("/add")
-    public ResponseEntity<BranchLocation> createBranchLocation(@RequestBody BranchLocation location) throws CustomException {
+    public ResponseEntity<BranchLocation> createBranchLocation(
+            @RequestBody BranchLocation location) throws CustomException {
         BranchLocation createdBranchLocation = locationService.createBranchLocation(location);
         return new ResponseEntity<>(createdBranchLocation, HttpStatus.CREATED);
     }
@@ -65,7 +66,8 @@ public class BranchLocationController {
      * @author Kamil Praseej
      */
     @PutMapping("/update/{locationId}")
-    public ResponseEntity<BranchLocation> updateBranchLocation(@PathVariable Long locationId, @RequestBody BranchLocation location) throws CustomException {
+    public ResponseEntity<BranchLocation> updateBranchLocation(
+            @PathVariable Long locationId, @RequestBody BranchLocation location) throws CustomException {
         BranchLocation updatedBranchLocation = locationService.updateBranchLocation(locationId, location);
         return new ResponseEntity<>(updatedBranchLocation, HttpStatus.OK);
     }

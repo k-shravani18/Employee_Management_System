@@ -30,7 +30,8 @@ public class AttendanceController {
      * @author Kamil Praseej
      */
     @PostMapping("/check-in/{email:.+}")
-    public ResponseEntity<String> checkIn(@PathVariable String email, @RequestParam String location) throws RuntimeException {
+    public ResponseEntity<String> checkIn(
+            @PathVariable String email, @RequestParam String location) throws RuntimeException {
         try {
             attendanceDetailsService.checkIn(email, location);
             return ResponseEntity.ok("Check-in successful");
@@ -83,11 +84,13 @@ public class AttendanceController {
      * @author Kamil Praseej
      */
     @GetMapping("/employee/{email:.+}")
-    public ResponseEntity getAttendanceDetailsForEmployee(@PathVariable String email,
-                                                          @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                                          @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    public ResponseEntity getAttendanceDetailsForEmployee(
+            @PathVariable String email,
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         try {
-            Map<LocalDate, List<AttendanceDetails>> attendanceDetails = attendanceDetailsService.getAttendanceDetailsForEmployee(email, startDate, endDate);
+            Map<LocalDate, List<AttendanceDetails>> attendanceDetails =
+                    attendanceDetailsService.getAttendanceDetailsForEmployee(email, startDate, endDate);
             return ResponseEntity.ok(attendanceDetails);
         } catch (CustomException e) {
             throw new RuntimeException(e);
@@ -107,7 +110,8 @@ public class AttendanceController {
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         try {
-            Map<LocalDate, List<AttendanceDetails>> attendanceDetails = attendanceDetailsService.getAttendanceDetailsForDateRange(startDate, endDate);
+            Map<LocalDate, List<AttendanceDetails>> attendanceDetails =
+                    attendanceDetailsService.getAttendanceDetailsForDateRange(startDate, endDate);
             return ResponseEntity.ok(attendanceDetails);
         } catch (CustomException e) {
             throw new RuntimeException(e);
@@ -130,7 +134,8 @@ public class AttendanceController {
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         try {
             Map<LocalDate, List<AttendanceDetails>> attendanceDetails =
-                    attendanceDetailsService.getAttendanceDetailsForDateRangeAndLocation(location, startDate, endDate);
+                    attendanceDetailsService.
+                            getAttendanceDetailsForDateRangeAndLocation(location, startDate, endDate);
             return ResponseEntity.ok(attendanceDetails);
         } catch (CustomException e) {
             throw new RuntimeException(e);

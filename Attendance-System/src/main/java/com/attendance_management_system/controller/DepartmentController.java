@@ -25,7 +25,8 @@ public class DepartmentController {
      * @author Kamil Praseej
      */
     @PostMapping("/add")
-    public ResponseEntity<Department> createDepartment(@RequestBody Department department) throws CustomException {
+    public ResponseEntity<Department> createDepartment(
+            @RequestBody Department department) throws CustomException {
         Department createdDepartment = departmentService.createDepartment(department);
         return new ResponseEntity<>(createdDepartment, HttpStatus.CREATED);
     }
@@ -39,7 +40,8 @@ public class DepartmentController {
      * @author Kamil Praseej
      */
     @GetMapping("/{departmentId}")
-    public ResponseEntity<Department> getDepartment(@PathVariable Long departmentId) throws CustomException {
+    public ResponseEntity<Department> getDepartment(
+            @PathVariable Long departmentId) throws CustomException {
         Department department = departmentService.getDepartmentById(departmentId);
         return new ResponseEntity<>(department, HttpStatus.OK);
     }
@@ -63,7 +65,8 @@ public class DepartmentController {
      * @throws CustomException If there is an issue updating the department.
      */
     @PutMapping("/update/{departmentId}")
-    public ResponseEntity<Department> updateDepartment(@PathVariable Long departmentId, @RequestBody Department department) throws CustomException {
+    public ResponseEntity<Department> updateDepartment(
+            @PathVariable Long departmentId, @RequestBody Department department) throws CustomException {
         Department updatedDepartment = departmentService.updateDepartment(departmentId, department);
         return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
     }

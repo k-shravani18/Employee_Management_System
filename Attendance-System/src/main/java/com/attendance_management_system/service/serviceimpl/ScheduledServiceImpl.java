@@ -103,7 +103,10 @@ public class ScheduledServiceImpl implements ScheduledService {
         try {
             if (!checkHolidays()) {
                 employeeRepository.findAll().forEach(employee -> {
-                    if (getAttendanceDetails(employee).getCheckOutTime() == null) {
+                    AttendanceDetails attendanceDetails = getAttendanceDetails(employee);
+
+                    if (attendanceDetails.getCheckOutTime() == null &&
+                            attendanceDetails.getStatus().equals(AttendanceStatus.PRESENT)) {
                         emailService.sendReminderEmailEvening(employee);
                     }
                 });

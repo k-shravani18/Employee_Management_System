@@ -12,8 +12,10 @@ public interface AttendanceDetailsService {
     void checkIn(String email, String location) throws CustomException;
     void checkOut(String email, String location) throws CustomException;
     LocalDateTime fetchStartTime(String email) throws CustomException;
-    Map getAttendanceDetailsForEmployee(String email, LocalDate startDate, LocalDate endDate) throws CustomException;
+    Map getAttendanceDetailsForEmployee(
+            String email, LocalDate startDate, LocalDate endDate) throws CustomException;
     Map getAttendanceDetailsForDateRange(LocalDate startDate, LocalDate endDate) throws CustomException;
-    Map getAttendanceDetailsForDateRangeAndLocation(String location, LocalDate startDate, LocalDate endDate) throws CustomException;
+    Map getAttendanceDetailsForDateRangeAndLocation(
+            String location, LocalDate startDate, LocalDate endDate) throws CustomException;
 
 }

@@ -58,7 +58,8 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * @author Kamil Praseej
      */
     @Override
-    public LeaveApplication createLeaveApplication(String email, LeaveApplication leaveApplication) throws CustomException {
+    public LeaveApplication createLeaveApplication(
+            String email, LeaveApplication leaveApplication) throws CustomException {
         int leavesTaken, noOfDays=0, maximumLeaves, availableLeaves=0;
 
         try {
@@ -88,7 +89,9 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
             }
 
         } catch (DataAccessException | ResourceNotFoundException | InsufficientLeavesException e) {
-            throw new CustomException("Failed to create leave application."+" Insufficient leaves. Available: " + availableLeaves
+            throw new CustomException(
+                    "Failed to create leave application."+" " +
+                            "Insufficient leaves. Available: " + availableLeaves
                     + ", Requested: " + noOfDays);
         }
     }
@@ -177,7 +180,8 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
                     .stream()
                     .filter(leaveApplication ->
                             leaveApplication.getEmployee().getReportingManager()
-                                    .equalsIgnoreCase(manager.getFirstName() + " " + manager.getLastName()))
+                                    .equalsIgnoreCase(
+                                            manager.getFirstName() + " " + manager.getLastName()))
                     .toList();
         } catch (DataAccessException e) {
             throw new CustomException("Failed to fetch leave applications.", e);
@@ -193,7 +197,8 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * @author Kamil Praseej
      */
     @Override
-    public LeaveApplication updateLeaveApplication(LeaveApplication leaveApplication, String status) throws CustomException {
+    public LeaveApplication updateLeaveApplication(
+            LeaveApplication leaveApplication, String status) throws CustomException {
         try {
             if (status.equalsIgnoreCase("approved")) {
                 leaveApplication.setStatus(LeaveStatus.APPROVED.getValue());

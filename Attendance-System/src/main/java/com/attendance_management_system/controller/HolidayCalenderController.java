@@ -25,7 +25,8 @@ public class HolidayCalenderController {
      * @author Kamil Praseej
      */
     @PostMapping("/add")
-    public ResponseEntity<HolidayCalender> createHolidayCalender(@RequestBody HolidayCalender holiday) throws CustomException {
+    public ResponseEntity<HolidayCalender> createHolidayCalender(
+            @RequestBody HolidayCalender holiday) throws CustomException {
         HolidayCalender createdHolidayCalender = holidayService.createHolidayCalender(holiday);
         return new ResponseEntity<>(createdHolidayCalender, HttpStatus.CREATED);
     }
@@ -65,7 +66,8 @@ public class HolidayCalenderController {
      * @author Kamil Praseej
      */
     @PutMapping("/update/{holidayId}")
-    public ResponseEntity<HolidayCalender> updateHolidayCalender(@PathVariable Long holidayId, @RequestBody HolidayCalender holiday) throws CustomException {
+    public ResponseEntity<HolidayCalender> updateHolidayCalender(
+            @PathVariable Long holidayId, @RequestBody HolidayCalender holiday) throws CustomException {
         HolidayCalender updatedHolidayCalender = holidayService.updateHolidayCalender(holidayId, holiday);
         return new ResponseEntity<>(updatedHolidayCalender, HttpStatus.OK);
     }

@@ -51,7 +51,8 @@ public class AddressController {
      * @author Kamil Praseej
      */
     @PutMapping("/update/{addressId}")
-    public ResponseEntity<Address> updateAddress(@PathVariable Long addressId, @RequestBody Address address) throws CustomException {
+    public ResponseEntity<Address> updateAddress(
+            @PathVariable Long addressId, @RequestBody Address address) throws CustomException {
         Address updatedAddress = addressService.updateAddress(addressId, address);
         return new ResponseEntity<>(updatedAddress, HttpStatus.OK);
     }

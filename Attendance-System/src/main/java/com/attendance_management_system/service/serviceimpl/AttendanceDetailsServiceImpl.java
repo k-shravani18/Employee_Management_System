@@ -96,12 +96,14 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
             Employee employee = employeeRepository.findByEmailId(email);
 
             Attendance attendance = attendanceRepository.findByDate(LocalDate.now());
-            AttendanceDetails attendanceDetails = attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance);
+            AttendanceDetails attendanceDetails =
+                    attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance);
 
             attendanceDetails.setCheckOutLocation(location);
             attendanceDetails.setCheckOutTime(LocalDateTime.now());
 
-            Duration timeDifference = calculateTimeDifference(attendanceDetails.getCheckInTime(), LocalDateTime.now());
+            Duration timeDifference = calculateTimeDifference(
+                    attendanceDetails.getCheckInTime(), LocalDateTime.now());
             long totalTime = timeDifference.toMinutes();
             attendanceDetails.setTotalTime(totalTime);
 
@@ -124,12 +126,14 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
             Employee employee = employeeRepository.findByEmailId(email);
 
             Attendance attendance = attendanceRepository.findByDate(LocalDate.now());
-            AttendanceDetails attendanceDetails = attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance);
+            AttendanceDetails attendanceDetails =
+                    attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance);
 
             if (attendanceDetails.getCheckOutTime() == null && attendanceDetails.getCheckInTime() != null) {
                 return attendanceDetails.getCheckInTime();
             } else if (attendanceDetails.getCheckOutTime() != null) {
-                Duration duration = calculateTimeDifference(attendanceDetails.getCheckInTime(), attendanceDetails.getCheckOutTime());
+                Duration duration = calculateTimeDifference(
+                        attendanceDetails.getCheckInTime(), attendanceDetails.getCheckOutTime());
                 String formattedTime = formatDuration(duration);
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -157,7 +161,9 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
      * @author Kamil Praseej
      */
     @Override
-    public Map getAttendanceDetailsForEmployee(String email, LocalDate startDate, LocalDate endDate) throws CustomException {
+    public Map getAttendanceDetailsForEmployee(
+            String email, LocalDate startDate, LocalDate endDate) throws CustomException {
+
         try {
             List<Attendance> attendances = attendanceRepository.findByDateBetween(startDate, endDate);
 
@@ -166,7 +172,8 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
             Map<LocalDate, AttendanceDetails> dateListMap = new HashMap<>();
 
             for (Attendance attendance : attendances) {
-                dateListMap.put(attendance.getDate(), attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance));
+                dateListMap.put(attendance.getDate(),
+                        attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance));
             }
             return dateListMap;
         } catch (DataAccessException e) {
@@ -208,17 +215,21 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
      * @author Kamil Praseej
      */
     @Override
-    public Map getAttendanceDetailsForDateRangeAndLocation(String location, LocalDate startDate, LocalDate endDate) throws CustomException {
+    public Map getAttendanceDetailsForDateRangeAndLocation(
+            String location, LocalDate startDate, LocalDate endDate) throws CustomException {
+
         try {
             List<Attendance> attendances = attendanceRepository.findByDateBetween(startDate, endDate);
 
             Map<LocalDate, List<AttendanceDetails>> dateListMap = new HashMap<>();
 
             for (Attendance attendance : attendances) {
-                dateListMap.put(attendance.getDate(), attendanceDetailsRepository.findByAttendance(attendance)
+                dateListMap.put(attendance.getDate(),
+                        attendanceDetailsRepository.findByAttendance(attendance)
                         .stream()
                         .filter(attendanceDetails ->
-                                attendanceDetails.getEmployee().getLocation().getLocationName().equalsIgnoreCase(location))
+                                attendanceDetails.getEmployee().
+                                        getLocation().getLocationName().equalsIgnoreCase(location))
                         .toList());
             }
             return dateListMap;

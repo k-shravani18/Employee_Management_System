@@ -36,7 +36,8 @@ public class EmailServiceImpl implements EmailService {
     public void sendReminderEmailMorning(Employee employee) {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+            MimeMessageHelper helper = new MimeMessageHelper(
+                    message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
             String htmlTemplate = getHtmlTemplate(1);
             String emailContent = replacePlaceholders(htmlTemplate, employee);
@@ -63,7 +64,8 @@ public class EmailServiceImpl implements EmailService {
     public void sendReminderEmailEvening(Employee employee) {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+            MimeMessageHelper helper = new MimeMessageHelper(
+                    message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
             String htmlTemplate = getHtmlTemplate(2);
             String emailContent = replacePlaceholders(htmlTemplate, employee);

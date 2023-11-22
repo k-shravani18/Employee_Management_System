@@ -62,7 +62,8 @@ public class OrganizationServiceImpl implements OrganizationService {
      * @author Kamil Praseej
      */
     @Override
-    public Organization updateOrganization(Long organizationId, Organization organization) throws CustomException {
+    public Organization updateOrganization(
+            Long organizationId, Organization organization) throws CustomException {
         try {
             organization.setOrganizationId(organizationId);
             return organizationRepository.save(organization);

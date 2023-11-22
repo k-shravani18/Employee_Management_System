@@ -22,7 +22,8 @@ public class DesignationController {
      * @author Kamil Praseej
      */
     @PostMapping("/add")
-    public ResponseEntity<Designation> createDesignation(@RequestBody Designation designation) throws CustomException {
+    public ResponseEntity<Designation> createDesignation(
+            @RequestBody Designation designation) throws CustomException {
         Designation createdDesignation = designationService.createDesignation(designation);
         return new ResponseEntity<>(createdDesignation, HttpStatus.CREATED);
     }
@@ -49,7 +50,8 @@ public class DesignationController {
      * @throws CustomException If there is an issue updating the designation.
      */
     @PutMapping("/update/{designationId}")
-    public ResponseEntity<Designation> updateDesignation(@PathVariable Long designationId, @RequestBody Designation designation) throws CustomException {
+    public ResponseEntity<Designation> updateDesignation(
+            @PathVariable Long designationId, @RequestBody Designation designation) throws CustomException {
         Designation updatedDesignation = designationService.updateDesignation(designationId, designation);
         return new ResponseEntity<>(updatedDesignation, HttpStatus.OK);
     }

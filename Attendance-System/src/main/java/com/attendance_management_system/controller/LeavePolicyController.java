@@ -25,7 +25,8 @@ public class LeavePolicyController {
      * @author Kamil Praseej
      */
     @PostMapping("/add")
-    public ResponseEntity<LeavePolicy> createLeavePolicy(@RequestBody LeavePolicy leavePolicy) throws CustomException {
+    public ResponseEntity<LeavePolicy> createLeavePolicy(
+            @RequestBody LeavePolicy leavePolicy) throws CustomException {
         LeavePolicy createdLeavePolicy = leavePolicyService.createLeavePolicy(leavePolicy);
         return new ResponseEntity<>(createdLeavePolicy, HttpStatus.CREATED);
     }
@@ -63,7 +64,8 @@ public class LeavePolicyController {
      * @throws CustomException If there is an issue updating the leavePolicy.
      */
     @PutMapping("/update/{leavePolicyId}")
-    public ResponseEntity<LeavePolicy> updateLeavePolicy(@PathVariable Long leavePolicyId, @RequestBody LeavePolicy leavePolicy) throws CustomException {
+    public ResponseEntity<LeavePolicy> updateLeavePolicy(
+            @PathVariable Long leavePolicyId, @RequestBody LeavePolicy leavePolicy) throws CustomException {
         LeavePolicy updatedLeavePolicy = leavePolicyService.updateLeavePolicy(leavePolicyId, leavePolicy);
         return new ResponseEntity<>(updatedLeavePolicy, HttpStatus.OK);
     }

@@ -23,7 +23,8 @@ public class OrganizationController {
      * @author Kamil Praseej
      */
     @PostMapping("/add")
-    public ResponseEntity<Organization> createOrganization(@RequestBody Organization organization) throws CustomException {
+    public ResponseEntity<Organization> createOrganization(
+            @RequestBody Organization organization) throws CustomException {
         Organization createdOrganization = organizationService.createOrganization(organization);
         return new ResponseEntity<>(createdOrganization, HttpStatus.CREATED);
     }
@@ -51,7 +52,8 @@ public class OrganizationController {
      * @author Kamil Praseej
      */
     @PutMapping("/update/{organizationId}")
-    public ResponseEntity<Organization> updateOrganization(@PathVariable Long organizationId, @RequestBody Organization organization) throws CustomException {
+    public ResponseEntity<Organization> updateOrganization(
+            @PathVariable Long organizationId, @RequestBody Organization organization) throws CustomException {
         Organization updatedOrganization = organizationService.updateOrganization(organizationId, organization);
         return new ResponseEntity<>(updatedOrganization, HttpStatus.OK);
     }

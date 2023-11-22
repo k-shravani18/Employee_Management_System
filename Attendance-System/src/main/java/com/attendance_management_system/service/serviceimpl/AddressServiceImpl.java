@@ -41,7 +41,8 @@ public class AddressServiceImpl implements AddressService {
      * Retrieves an address by its ID.
      * @param addressId The ID of the address to be retrieved.
      * @return The address with the specified ID.
-     * @throws CustomException If the address with the given ID is not found or if there is an issue fetching the address.
+     * @throws CustomException If the address with the given ID
+       is not found or if there is an issue fetching the address.
      * @author Kamil Praseej
      */
     @Override

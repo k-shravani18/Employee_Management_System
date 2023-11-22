@@ -31,7 +31,8 @@ public class LeaveApplicationController {
      * @author Kamil Praseej
      */
     @PostMapping("/add/{email:.+}")
-    public ResponseEntity createLeaveApplication(@PathVariable String email, @RequestBody LeaveApplication leaveApplication) throws RuntimeException {
+    public ResponseEntity createLeaveApplication(
+            @PathVariable String email, @RequestBody LeaveApplication leaveApplication) throws RuntimeException {
         LeaveApplication createdLeaveApplication;
         try {
             createdLeaveApplication = leaveApplicationService.createLeaveApplication(email, leaveApplication);
@@ -50,7 +51,8 @@ public class LeaveApplicationController {
      * @author Kamil Praseej
      */
     @PostMapping("/update")
-    public ResponseEntity updateLeaveApplication(@RequestBody LeaveApplication leaveApplication, String status) throws RuntimeException {
+    public ResponseEntity updateLeaveApplication(
+            @RequestBody LeaveApplication leaveApplication, String status) throws RuntimeException {
         LeaveApplication updatedLeaveApplication;
         try {
             updatedLeaveApplication = leaveApplicationService.updateLeaveApplication(leaveApplication, status);
@@ -94,8 +96,10 @@ public class LeaveApplicationController {
      * @author Kamil Praseej
      */
     @GetMapping("/getLeaveApplications/{email:.+}")
-    public ResponseEntity<List<LeaveApplication>> getAllLeaveApplicationsForManager(@PathVariable String email) throws CustomException {
-        List<LeaveApplication> leaveApplications = leaveApplicationService.getAllLeaveApplicationsByManager(email);
+    public ResponseEntity<List<LeaveApplication>> getAllLeaveApplicationsForManager(
+            @PathVariable String email) throws CustomException {
+        List<LeaveApplication> leaveApplications =
+                leaveApplicationService.getAllLeaveApplicationsByManager(email);
         return new ResponseEntity<>(leaveApplications, HttpStatus.OK);
     }
 
@@ -107,7 +111,8 @@ public class LeaveApplicationController {
      * @author Kamil Praseej
      */
     @DeleteMapping("/delete/{leaveApplicationId}")
-    public ResponseEntity<Void> deleteLeaveApplication(@PathVariable Long leaveApplicationId) throws CustomException {
+    public ResponseEntity<Void> deleteLeaveApplication(
+            @PathVariable Long leaveApplicationId) throws CustomException {
         leaveApplicationService.deleteLeaveApplication(leaveApplicationId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
