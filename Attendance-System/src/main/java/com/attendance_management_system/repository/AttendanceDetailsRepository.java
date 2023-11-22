@@ -1,6 +1,5 @@
 package com.attendance_management_system.repository;
 
-import com.attendance_management_system.constants.AttendanceStatus;
 import com.attendance_management_system.model.Attendance;
 import com.attendance_management_system.model.AttendanceDetails;
 import com.attendance_management_system.model.Employee;
