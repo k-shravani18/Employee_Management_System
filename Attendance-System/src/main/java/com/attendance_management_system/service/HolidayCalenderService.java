@@ -10,7 +10,6 @@ import java.util.List;
 public interface HolidayCalenderService {
     HolidayCalender createHolidayCalender(HolidayCalender holiday) throws CustomException;
     HolidayCalender getHolidayCalenderById(Long holidayId) throws CustomException;
-
     List<HolidayCalender> getAllHolidayCalenders() throws CustomException;
     HolidayCalender updateHolidayCalender(Long holidayId, HolidayCalender holiday) throws CustomException;
     void deleteHolidayCalender(Long holidayId) throws CustomException;

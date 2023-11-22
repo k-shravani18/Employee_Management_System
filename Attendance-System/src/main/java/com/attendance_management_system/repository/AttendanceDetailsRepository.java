@@ -1,5 +1,7 @@
 package com.attendance_management_system.repository;
 
+import com.attendance_management_system.constants.AttendanceStatus;
+import com.attendance_management_system.constants.LeaveStatus;
 import com.attendance_management_system.model.Attendance;
 import com.attendance_management_system.model.AttendanceDetails;
 import com.attendance_management_system.model.Employee;
@@ -13,6 +15,7 @@ public interface AttendanceDetailsRepository extends JpaRepository<AttendanceDet
     AttendanceDetails findByEmployeeAndAttendance(Employee employee, Attendance attendance);
     AttendanceDetails findByEmployee(Employee employee);
     List<AttendanceDetails> findByAttendance(Attendance attendance);
+    List<AttendanceDetails> findByEmployeeAndStatus(Employee employee, AttendanceStatus status);
 
 
 }

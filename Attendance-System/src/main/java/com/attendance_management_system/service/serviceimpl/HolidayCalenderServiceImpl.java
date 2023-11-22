@@ -14,8 +14,12 @@ import java.util.List;
 @Service
 public class HolidayCalenderServiceImpl implements HolidayCalenderService {
 
+    private final HolidayCalenderRepository holidayRepository;
+
     @Autowired
-    private HolidayCalenderRepository holidayRepository;
+    public HolidayCalenderServiceImpl(HolidayCalenderRepository holidayRepository) {
+        this.holidayRepository = holidayRepository;
+    }
 
     @Override
     public HolidayCalender createHolidayCalender(HolidayCalender holiday) throws CustomException {

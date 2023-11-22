@@ -13,8 +13,12 @@ import javax.persistence.EntityNotFoundException;
 @Service
 public class DesignationServiceImpl implements DesignationService {
 
+    private final DesignationRepository designationRepository;
+
     @Autowired
-    private DesignationRepository designationRepository;
+    public DesignationServiceImpl(DesignationRepository designationRepository) {
+        this.designationRepository = designationRepository;
+    }
 
     @Override
     public Designation createDesignation(Designation designation) throws CustomException {

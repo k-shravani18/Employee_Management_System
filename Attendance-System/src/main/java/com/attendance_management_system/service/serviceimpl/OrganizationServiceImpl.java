@@ -12,8 +12,12 @@ import javax.persistence.EntityNotFoundException;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
+    private final OrganizationRepository organizationRepository;
+
     @Autowired
-    private OrganizationRepository organizationRepository;
+    public OrganizationServiceImpl(OrganizationRepository organizationRepository) {
+        this.organizationRepository = organizationRepository;
+    }
 
     @Override
     public Organization createOrganization(Organization organization) throws CustomException {

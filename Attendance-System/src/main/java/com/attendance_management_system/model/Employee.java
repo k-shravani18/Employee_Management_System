@@ -15,7 +15,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employeeId;
 
-    private String fullName;
+    private String imageUrl;
 
     private String firstName;
 
@@ -23,11 +23,15 @@ public class Employee {
 
     private String emailId;
 
-    private String age;
+    private int age;
 
     private String phone;
 
     private String gender;
+
+    private boolean isReportingManager;
+
+    private String reportingManager;
 
     @OneToOne
     private Address address;
@@ -35,6 +39,7 @@ public class Employee {
     @OneToOne
     private Designation designation;
 
-//    @OneToMany
-//    private LeavePolicy leavePolicy;
+    @OneToOne
+    private BranchOffice branchOffice;
+
 }

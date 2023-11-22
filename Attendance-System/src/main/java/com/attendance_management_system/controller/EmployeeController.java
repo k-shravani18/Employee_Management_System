@@ -25,13 +25,13 @@ public class EmployeeController {
 
     /**
      *
-     * @param employeeId
+     * @param email
      * @return
      * @throws CustomException
      */
-    @GetMapping("/{employeeId}")
-    public ResponseEntity<Employee> getEmployee(@PathVariable Long employeeId) throws CustomException {
-        Employee employee = employeeService.getEmployeeById(employeeId);
+    @GetMapping("/getEmployee/{email:.+}")
+    public ResponseEntity<Employee> getEmployee(@PathVariable String email) throws CustomException {
+        Employee employee = employeeService.getEmployeeByEmailId(email);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 

@@ -20,9 +20,8 @@ public class Organization {
 
     private String organizationName;
 
-    private String location;
+    private String headOfficeLocation;
 
-    private String generalCheckInTime;
+    private String headOfficeAddress;
 
-    private String generalCheckOutTime;
 }

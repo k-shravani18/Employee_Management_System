@@ -20,8 +20,12 @@ public class EmailServiceImpl implements EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+    private final EmployeeRepository employeeRepository;
+
     @Autowired
-    private EmployeeRepository employeeRepository;
+    public EmailServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     @Override
     public void sendReminderEmailMorning(Employee employee) {
@@ -86,7 +90,8 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private String replacePlaceholders(String emailContent, Employee employee) {
-        emailContent = emailContent.replace("{FULL_NAME}", employee.getFullName());
+        emailContent = emailContent.replace(
+                "{FULL_NAME}",employee.getFirstName()+" "+employee.getLastName());
         return emailContent;
     }
 

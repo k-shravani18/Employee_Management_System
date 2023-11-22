@@ -6,4 +6,7 @@ public class CustomException extends Throwable {
 
     public CustomException(String s, DataAccessException e) {
     }
+    public CustomException(String message){
+        super(message);
+    }
 }

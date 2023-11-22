@@ -27,11 +27,19 @@ import java.util.Map;
 @Service
 public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
 
-    @Autowired
-    private AttendanceDetailsRepository attendanceDetailsRepository;
+    private final AttendanceDetailsRepository attendanceDetailsRepository;
+
+    private final AttendanceRepository attendanceRepository;
 
     @Autowired
-    private AttendanceRepository attendanceRepository;
+    public AttendanceDetailsServiceImpl(AttendanceDetailsRepository attendanceDetailsRepository,
+                                        AttendanceRepository attendanceRepository,
+                                        EmployeeRepository employeeRepository) {
+        this.attendanceDetailsRepository = attendanceDetailsRepository;
+        this.attendanceRepository = attendanceRepository;
+        this.employeeRepository = employeeRepository;
+    }
+
     @Autowired
     private  EmployeeRepository employeeRepository;
 
@@ -44,9 +52,10 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
             Employee employee = employeeRepository.findByEmailId(email);
             if(employee!= null){
             Attendance attendance = attendanceRepository.findByDate(LocalDate.now());
-                if(attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance) == null) {
+            AttendanceDetails attendanceDetails =
+                    attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance);
+                if(attendanceDetails.getStatus().equals(AttendanceStatus.OUT)) {
 
-                    AttendanceDetails attendanceDetails = new AttendanceDetails();
                     attendanceDetails.setEmployee(employee);
                     attendanceDetails.setCheckInLocation(location);
                     attendanceDetails.setCheckInTime(LocalDateTime.now());
@@ -100,11 +109,11 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
         Attendance attendance = attendanceRepository.findByDate(LocalDate.now());
         AttendanceDetails attendanceDetails = attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance);
 
-            if( attendanceDetails != null && attendanceDetails.getCheckOutTime() == null) {
+            if(attendanceDetails.getCheckOutTime() == null && attendanceDetails.getCheckInTime() != null) {
 
                return attendanceDetails.getCheckInTime();
             }
-            else if( attendanceDetails != null && attendanceDetails.getCheckOutTime() != null) {
+            else if(attendanceDetails.getCheckOutTime() != null) {
 
                 Duration duration = calculateTimeDifference(attendanceDetails.getCheckInTime(), attendanceDetails.getCheckOutTime());
                 String formattedTime = formatDuration(duration);
@@ -115,11 +124,12 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
 
                 return LocalDateTime.of(today,time);
             }
-            else{
+            else {
                 LocalDate today = LocalDate.now();
                 LocalTime midnight = LocalTime.MIDNIGHT;
                 return LocalDateTime.of(today, midnight);
             }
+
         } catch (DataAccessException e) {
             throw new CustomException("Unable to fetch data", e);
         }

@@ -8,14 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+    private final EmployeeRepository employeeRepository;
+
     @Autowired
-    private EmployeeRepository employeeRepository;
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     @Override
     public Employee createEmployee(Employee employee) throws CustomException {
@@ -27,14 +31,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeById(Long employeeId) throws CustomException {
+    public Employee getEmployeeByEmailId(String email) throws CustomException {
         try {
-            return employeeRepository.findById(employeeId)
-                    .orElseThrow(() -> new EntityNotFoundException("Employee not found"));
+            return employeeRepository.findByEmailId(email);
+
         } catch (DataAccessException e) {
             throw new CustomException("Failed to fetch employee.", e);
         }
     }
+
+    @Override
+    public Optional<Employee> getEmployeeById(long id) throws CustomException {
+        try {
+            return employeeRepository.findById(id);
+
+        } catch (DataAccessException e) {
+            throw new CustomException("Failed to fetch employee.", e);
+        }    }
 
     @Override
     public List<Employee> getAllEmployees() throws CustomException {
