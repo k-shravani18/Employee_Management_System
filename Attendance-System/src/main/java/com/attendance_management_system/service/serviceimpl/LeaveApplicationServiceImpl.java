@@ -135,6 +135,21 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
     }
 
     @Override
+    public List<LeaveApplication> getAllLeaveApplicationsByManager(String email) throws CustomException {
+        try {
+            Employee manager = employeeRepository.findByEmailId(email);
+            return leaveApplicationRepository.findAll()
+                    .stream()
+                    .filter(leaveApplication ->
+                            leaveApplication.getEmployee().getReportingManager()
+                                    .equalsIgnoreCase(manager.getFirstName()+" "+manager.getLastName()))
+                    .toList();
+        } catch (DataAccessException e) {
+            throw new CustomException("Failed to fetch leaveApplication.", e);
+        }
+    }
+
+    @Override
     public LeaveApplication updateLeaveApplication(LeaveApplication leaveApplication, String status) throws CustomException {
         try {
             if(status.equalsIgnoreCase("approved")){
@@ -168,6 +183,8 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
             throw new CustomException("Failed to delete leaveApplication.", e);
         }
     }
+
+
 
     public int calculateNumberOfDaysInclusive(LocalDate startDate, LocalDate endDate) {
         return (int) (ChronoUnit.DAYS.between(startDate, endDate) + 1);

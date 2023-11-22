@@ -15,4 +15,6 @@ public interface LeaveApplicationService {
     List<LeaveApplication> getAllLeaveApplications() throws CustomException;
     LeaveApplication updateLeaveApplication(LeaveApplication leaveApplication, String status) throws CustomException;
     void deleteLeaveApplication(Long leaveApplicationId) throws CustomException;
+
+    List<LeaveApplication> getAllLeaveApplicationsByManager(String email) throws CustomException;
 }

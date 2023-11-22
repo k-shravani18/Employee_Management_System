@@ -47,7 +47,7 @@ public class LeaveApplicationController {
     }
 
     @GetMapping("/fetch/{email:.+}")
-    public ResponseEntity<List<EmployeeLeave>> getLeavesByCategory(@PathVariable String  email) throws CustomException {
+    public ResponseEntity<List<EmployeeLeave>> getLeavesByCategory(@PathVariable String email) throws CustomException {
         Employee employee = employeeRepository.findByEmailId(email);
         List<EmployeeLeave> leave = leaveApplicationService.getLeavesByCategory(employee);
         return new ResponseEntity<>(leave, HttpStatus.OK);
@@ -56,6 +56,11 @@ public class LeaveApplicationController {
     @GetMapping("/getLeaveApplications")
     public ResponseEntity<List<LeaveApplication>> getAllLeaveApplications() throws CustomException {
         List<LeaveApplication> leaveApplications = leaveApplicationService.getAllLeaveApplications();
+        return new ResponseEntity<>(leaveApplications, HttpStatus.OK);
+    }
+    @GetMapping("/getLeaveApplications/{email:.+}")
+    public ResponseEntity<List<LeaveApplication>> getAllLeaveApplicationsForManager(@PathVariable String email) throws CustomException {
+        List<LeaveApplication> leaveApplications = leaveApplicationService.getAllLeaveApplicationsByManager(email);
         return new ResponseEntity<>(leaveApplications, HttpStatus.OK);
     }
 
