@@ -14,4 +14,6 @@ public interface AttendanceDetailsService {
     LocalDateTime fetchStartTime(String email) throws CustomException;
     Map getAttendanceDetailsForEmployee(String email, LocalDate startDate, LocalDate endDate) throws CustomException;
     Map getAttendanceDetailsForDateRange(LocalDate startDate, LocalDate endDate) throws CustomException;
+    Map getAttendanceDetailsForDateRangeAndLocation(String location, LocalDate startDate, LocalDate endDate) throws CustomException;
+
 }

@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalTime;
 
 @Getter
@@ -16,17 +13,21 @@ import java.time.LocalTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class BranchOffice {
+public class BranchLocation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long branchOfficeId;
+    private long locationId;
 
-    private String LocatedCity;
+    private String locationName;
 
-    private String locationAddress;
+    private String locationDetails;
 
     private LocalTime checkInTime;
 
     private LocalTime checkOutTime;
 
+    @ManyToOne
+    private Organization organization;
+
 }
+

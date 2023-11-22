@@ -9,6 +9,7 @@ import com.attendance_management_system.exceptions.AlreadyCheckedInException;
 import com.attendance_management_system.exceptions.CustomException;
 import com.attendance_management_system.repository.AttendanceDetailsRepository;
 import com.attendance_management_system.repository.AttendanceRepository;
+import com.attendance_management_system.repository.BranchLocationRepository;
 import com.attendance_management_system.repository.EmployeeRepository;
 import com.attendance_management_system.service.AttendanceDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,16 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
 
     private final AttendanceRepository attendanceRepository;
 
+    private final BranchLocationRepository locationRepository;
+
     @Autowired
     public AttendanceDetailsServiceImpl(AttendanceDetailsRepository attendanceDetailsRepository,
                                         AttendanceRepository attendanceRepository,
+                                        BranchLocationRepository locationRepository,
                                         EmployeeRepository employeeRepository) {
         this.attendanceDetailsRepository = attendanceDetailsRepository;
         this.attendanceRepository = attendanceRepository;
+        this.locationRepository = locationRepository;
         this.employeeRepository = employeeRepository;
     }
 
@@ -158,6 +163,23 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
             Map<LocalDate,List<AttendanceDetails>> dateListMap=new HashMap<>();
             for(Attendance attendance: attendances){
                 dateListMap.put(attendance.getDate(),attendanceDetailsRepository.findByAttendance(attendance));
+            }
+            return dateListMap;
+        }catch (DataAccessException e) {
+            throw new CustomException("Unable to fetch data", e);
+        }
+    }
+
+    @Override
+    public Map getAttendanceDetailsForDateRangeAndLocation(
+            String location, LocalDate startDate, LocalDate endDate) throws CustomException {
+
+        try{
+            List<Attendance> attendances = attendanceRepository.findByDateBetween(startDate, endDate);
+            Map<LocalDate,List<AttendanceDetails>> dateListMap=new HashMap<>();
+            for(Attendance attendance: attendances){
+                dateListMap.put(attendance.getDate(),attendanceDetailsRepository.findByAttendance(attendance).stream()
+                        .filter(attendanceDetails -> attendanceDetails.getEmployee().getLocation().getLocationName().equalsIgnoreCase(location)).toList());
             }
             return dateListMap;
         }catch (DataAccessException e) {

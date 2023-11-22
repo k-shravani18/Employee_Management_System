@@ -92,4 +92,19 @@ public class AttendanceController {
             throw new RuntimeException(e);
         }
     }
+
+    @GetMapping("/employees/location")
+    @ResponseBody
+    public ResponseEntity getAttendanceDetailsForDateRangeAndLocation(
+            @RequestParam String location,
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        try{
+            Map<LocalDate,List<AttendanceDetails>> attendanceDetails =
+                    attendanceDetailsService.getAttendanceDetailsForDateRangeAndLocation(location, startDate, endDate);
+            return ResponseEntity.ok(attendanceDetails);
+        } catch (CustomException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

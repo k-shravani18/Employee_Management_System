@@ -40,14 +40,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
-    @Override
-    public Optional<Employee> getEmployeeById(long id) throws CustomException {
-        try {
-            return employeeRepository.findById(id);
-
-        } catch (DataAccessException e) {
-            throw new CustomException("Failed to fetch employee.", e);
-        }    }
+//    @Override
+//    public Optional<Employee> getEmployeeById(long id) throws CustomException {
+//        try {
+//            return employeeRepository.findById(id);
+//
+//        } catch (DataAccessException e) {
+//            throw new CustomException("Failed to fetch employee.", e);
+//        }    }
 
     @Override
     public List<Employee> getAllEmployees() throws CustomException {

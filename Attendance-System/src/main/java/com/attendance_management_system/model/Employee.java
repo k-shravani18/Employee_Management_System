@@ -29,7 +29,7 @@ public class Employee {
 
     private String gender;
 
-    private boolean isReportingManager;
+    private Boolean isReportingManager;
 
     private String reportingManager;
 
@@ -40,6 +40,6 @@ public class Employee {
     private Designation designation;
 
     @OneToOne
-    private BranchOffice branchOffice;
+    private BranchLocation location;
 
 }
