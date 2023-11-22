@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BranchLocationRepository extends JpaRepository<BranchLocation, Long> {
-    BranchLocation findByLocationName(String locationName);
 }

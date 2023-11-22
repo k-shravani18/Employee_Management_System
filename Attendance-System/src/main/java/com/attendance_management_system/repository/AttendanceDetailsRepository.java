@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 public interface AttendanceDetailsRepository extends JpaRepository<AttendanceDetails, Long> {
     AttendanceDetails findByEmployeeAndAttendance(Employee employee, Attendance attendance);
-    AttendanceDetails findByEmployee(Employee employee);
     List<AttendanceDetails> findByAttendance(Attendance attendance);
     List<AttendanceDetails> findByEmployeeAndStatus(Employee employee, AttendanceStatus status);
 
