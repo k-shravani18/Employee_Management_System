@@ -11,6 +11,4 @@ import java.util.List;
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     Attendance findByDate(LocalDate date);
     List<Attendance> findByDateBetween(LocalDate startDate, LocalDate endDate);
-
-
 }
