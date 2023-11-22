@@ -22,6 +22,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
+    /**
+     * Creates a new employee.
+     * @param employee The employee object to be created.
+     * @return The created employee.
+     * @throws CustomException If there is an issue creating the employee.
+     * @author Kamil Praseej
+     */
     @Override
     public Employee createEmployee(Employee employee) throws CustomException {
         try {
@@ -31,25 +38,44 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    /**
+     * Retrieves an employee by their email address.
+     * @param email The email address of the employee.
+     * @return The employee with the specified email address.
+     * @throws CustomException If there is an issue fetching the employee.
+     * @author Kamil Praseej
+     */
     @Override
     public Employee getEmployeeByEmailId(String email) throws CustomException {
         try {
             return employeeRepository.findByEmailId(email);
-
         } catch (DataAccessException e) {
             throw new CustomException("Failed to fetch employee.", e);
         }
     }
 
-//    @Override
-//    public Optional<Employee> getEmployeeById(long id) throws CustomException {
-//        try {
-//            return employeeRepository.findById(id);
-//
-//        } catch (DataAccessException e) {
-//            throw new CustomException("Failed to fetch employee.", e);
-//        }    }
+    /**
+     * Retrieves an employee by their ID.
+     * @param id The ID of the employee.
+     * @return An optional containing the employee with the specified ID, if present.
+     * @throws CustomException If there is an issue fetching the employee.
+     * @author Kamil Praseej
+     */
+    @Override
+    public Optional<Employee> getEmployeeById(long id) throws CustomException {
+        try {
+            return employeeRepository.findById(id);
+        } catch (DataAccessException e) {
+            throw new CustomException("Failed to fetch employee.", e);
+        }
+    }
 
+    /**
+     * Retrieves a list of all employees.
+     * @return The list of all employees.
+     * @throws CustomException If there is an issue fetching the employees.
+     * @author Kamil Praseej
+     */
     @Override
     public List<Employee> getAllEmployees() throws CustomException {
         try {
@@ -59,28 +85,49 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    /**
+     * Retrieves a list of all reporting managers.
+     * @return The list of all reporting managers.
+     * @throws CustomException If there is an issue fetching the reporting managers.
+     * @author Kamil Praseej
+     */
     @Override
     public List<Employee> getAllReportingManagers() throws CustomException {
         try {
             return employeeRepository.findAll()
                     .stream()
-                    .filter(employee -> employee.getIsReportingManager())
+                    .filter(Employee::getIsReportingManager)
                     .collect(Collectors.toList());
         } catch (DataAccessException e) {
             throw new CustomException("Failed to fetch reporting managers.", e);
         }
     }
 
+    /**
+     * Updates an existing employee with the specified email address.
+     * @param email    The email address of the employee to be updated.
+     * @param employee The updated employee details.
+     * @return The updated employee.
+     * @throws CustomException If there is an issue updating the employee.
+     * @author Kamil Praseej
+     */
     @Override
-    public Employee updateEmployee(Long employeeId, Employee employee) throws CustomException {
+    public Employee updateEmployee(String email, Employee employee) throws CustomException {
         try {
-            employee.setEmployeeId(employeeId);
+            Employee employeeDetails = employeeRepository.findByEmailId(email);
+            employee.setEmployeeId(employeeDetails.getEmployeeId());
             return employeeRepository.save(employee);
         } catch (DataAccessException e) {
             throw new CustomException("Failed to update employee.", e);
         }
     }
 
+    /**
+     * Deletes an employee with the specified ID.
+     * @param employeeId The ID of the employee to be deleted.
+     * @throws CustomException If there is an issue deleting the employee.
+     * @author Kamil Praseej
+     */
     @Override
     public void deleteEmployee(Long employeeId) throws CustomException {
         try {
@@ -89,6 +136,4 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new CustomException("Failed to delete employee.", e);
         }
     }
-
-
 }

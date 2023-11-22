@@ -19,6 +19,13 @@ public class OrganizationServiceImpl implements OrganizationService {
         this.organizationRepository = organizationRepository;
     }
 
+    /**
+     * Creates a new organization.
+     * @param organization The organization to be created.
+     * @return The created organization.
+     * @throws CustomException If there is an issue creating the organization.
+     * @author Kamil Praseej
+     */
     @Override
     public Organization createOrganization(Organization organization) throws CustomException {
         try {
@@ -28,6 +35,14 @@ public class OrganizationServiceImpl implements OrganizationService {
         }
     }
 
+    /**
+     * Retrieves an organization by its ID.
+     * @param organizationId The ID of the organization to be retrieved.
+     * @return The organization with the specified ID.
+     * @throws CustomException If the organization with the given ID
+       is not found or if there is an issue fetching the organization.
+     * @author Kamil Praseej
+     */
     @Override
     public Organization getOrganizationById(Long organizationId) throws CustomException {
         try {
@@ -38,6 +53,14 @@ public class OrganizationServiceImpl implements OrganizationService {
         }
     }
 
+    /**
+     * Updates an existing organization.
+     * @param organizationId The ID of the organization to be updated.
+     * @param organization   The updated organization information.
+     * @return The updated organization.
+     * @throws CustomException If there is an issue updating the organization.
+     * @author Kamil Praseej
+     */
     @Override
     public Organization updateOrganization(Long organizationId, Organization organization) throws CustomException {
         try {
@@ -48,6 +71,12 @@ public class OrganizationServiceImpl implements OrganizationService {
         }
     }
 
+    /**
+     * Deletes an organization by its ID.
+     * @param organizationId The ID of the organization to be deleted.
+     * @throws CustomException If there is an issue deleting the organization.
+     * @author Kamil Praseej
+     */
     @Override
     public void deleteOrganization(Long organizationId) throws CustomException {
         try {
@@ -56,4 +85,5 @@ public class OrganizationServiceImpl implements OrganizationService {
             throw new CustomException("Failed to delete organization.", e);
         }
     }
+
 }

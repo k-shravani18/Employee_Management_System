@@ -20,6 +20,13 @@ public class DesignationServiceImpl implements DesignationService {
         this.designationRepository = designationRepository;
     }
 
+    /**
+     * Creates a new designation.
+     * @param designation The designation to be created.
+     * @return The created designation.
+     * @throws CustomException If there is an issue creating the designation.
+     * @author Kamil Praseej
+     */
     @Override
     public Designation createDesignation(Designation designation) throws CustomException {
         try {
@@ -29,6 +36,14 @@ public class DesignationServiceImpl implements DesignationService {
         }
     }
 
+    /**
+     * Retrieves a designation by its ID.
+     * @param designationId The ID of the designation to be retrieved.
+     * @return The designation with the specified ID.
+     * @throws CustomException If the designation with the given ID
+       is not found or if there is an issue fetching the designation.
+     * @author Kamil Praseej
+     */
     @Override
     public Designation getDesignationById(Long designationId) throws CustomException {
         try {
@@ -39,6 +54,14 @@ public class DesignationServiceImpl implements DesignationService {
         }
     }
 
+    /**
+     * Updates an existing designation.
+     * @param designationId The ID of the designation to be updated.
+     * @param designation   The updated designation information.
+     * @return The updated designation.
+     * @throws CustomException If there is an issue updating the designation.
+     * @author Kamil Praseej
+     */
     @Override
     public Designation updateDesignation(Long designationId, Designation designation) throws CustomException {
         try {
@@ -49,6 +72,12 @@ public class DesignationServiceImpl implements DesignationService {
         }
     }
 
+    /**
+     * Deletes a designation by its ID.
+     * @param designationId The ID of the designation to be deleted.
+     * @throws CustomException If there is an issue deleting the designation.
+     * @author Kamil Praseej
+     */
     @Override
     public void deleteDesignation(Long designationId) throws CustomException {
         try {

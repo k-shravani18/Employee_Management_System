@@ -22,6 +22,13 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.departmentRepository = departmentRepository;
     }
 
+    /**
+     * Creates a new department.
+     * @param department The department to be created.
+     * @return The created department.
+     * @throws CustomException If there is an issue creating the department.
+     * @author Kamil Praseej
+     */
     @Override
     public Department createDepartment(Department department) throws CustomException {
         try {
@@ -31,6 +38,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
     }
 
+    /**
+     * Retrieves a department by its ID.
+     * @param departmentId The ID of the department to be retrieved.
+     * @return The department with the specified ID.
+     * @throws CustomException If the department with the given ID
+       is not found or if there is an issue fetching the department.
+     * @author Kamil Praseej
+     */
     @Override
     public Department getDepartmentById(Long departmentId) throws CustomException {
         try {
@@ -41,6 +56,12 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
     }
 
+    /**
+     * Retrieves all departments.
+     * @return A list of all departments.
+     * @throws CustomException If there is an issue fetching the departments.
+     * @author Kamil Praseej
+     */
     @Override
     public List<Department> getAllDepartments() throws CustomException {
         try {
@@ -50,6 +71,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
     }
 
+    /**
+     * Updates an existing department.
+     * @param departmentId The ID of the department to be updated.
+     * @param department   The updated department information.
+     * @return The updated department.
+     * @throws CustomException If there is an issue updating the department.
+     * @author Kamil Praseej
+     */
     @Override
     public Department updateDepartment(Long departmentId, Department department) throws CustomException {
         try {
@@ -60,6 +89,12 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
     }
 
+    /**
+     * Deletes a department by its ID.
+     * @param departmentId The ID of the department to be deleted.
+     * @throws CustomException If there is an issue deleting the department.
+     * @author Kamil Praseej
+     */
     @Override
     public void deleteDepartment(Long departmentId) throws CustomException {
         try {
@@ -68,4 +103,5 @@ public class DepartmentServiceImpl implements DepartmentService {
             throw new CustomException("Failed to delete department.", e);
         }
     }
+
 }

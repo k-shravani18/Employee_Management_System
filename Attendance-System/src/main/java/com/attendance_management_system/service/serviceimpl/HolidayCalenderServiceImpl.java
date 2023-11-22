@@ -21,6 +21,13 @@ public class HolidayCalenderServiceImpl implements HolidayCalenderService {
         this.holidayRepository = holidayRepository;
     }
 
+    /**
+     * Creates a new holiday in the calendar.
+     * @param holiday The holiday to be created.
+     * @return The created holiday.
+     * @throws CustomException If there is an issue creating the holiday.
+     * @author Kamil Praseej
+     */
     @Override
     public HolidayCalender createHolidayCalender(HolidayCalender holiday) throws CustomException {
         try {
@@ -30,6 +37,14 @@ public class HolidayCalenderServiceImpl implements HolidayCalenderService {
         }
     }
 
+    /**
+     * Retrieves a holiday from the calendar by its ID.
+     * @param holidayId The ID of the holiday to be retrieved.
+     * @return The holiday with the specified ID.
+     * @throws CustomException If the holiday with the given ID
+       is not found or if there is an issue fetching the holiday.
+     * @author Kamil Praseej
+     */
     @Override
     public HolidayCalender getHolidayCalenderById(Long holidayId) throws CustomException {
         try {
@@ -40,6 +55,12 @@ public class HolidayCalenderServiceImpl implements HolidayCalenderService {
         }
     }
 
+    /**
+     * Retrieves all holidays from the calendar.
+     * @return A list of all holidays in the calendar.
+     * @throws CustomException If there is an issue fetching the holidays.
+     * @author Kamil Praseej
+     */
     @Override
     public List<HolidayCalender> getAllHolidayCalenders() throws CustomException {
         try {
@@ -49,6 +70,14 @@ public class HolidayCalenderServiceImpl implements HolidayCalenderService {
         }
     }
 
+    /**
+     * Updates an existing holiday in the calendar.
+     * @param holidayId The ID of the holiday to be updated.
+     * @param holiday   The updated holiday information.
+     * @return The updated holiday.
+     * @throws CustomException If there is an issue updating the holiday.
+     * @author Kamil Praseej
+     */
     @Override
     public HolidayCalender updateHolidayCalender(Long holidayId, HolidayCalender holiday) throws CustomException {
         try {
@@ -59,6 +88,12 @@ public class HolidayCalenderServiceImpl implements HolidayCalenderService {
         }
     }
 
+    /**
+     * Deletes a holiday from the calendar by its ID.
+     * @param holidayId The ID of the holiday to be deleted.
+     * @throws CustomException If there is an issue deleting the holiday.
+     * @author Kamil Praseej
+     */
     @Override
     public void deleteHolidayCalender(Long holidayId) throws CustomException {
         try {
@@ -67,4 +102,5 @@ public class HolidayCalenderServiceImpl implements HolidayCalenderService {
             throw new CustomException("Failed to delete holiday.", e);
         }
     }
+
 }

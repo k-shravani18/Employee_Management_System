@@ -22,6 +22,13 @@ public class BranchLocationServiceImpl implements BranchLocationService {
         this.locationRepository = locationRepository;
     }
 
+    /**
+     * Creates a new branch location.
+     * @param location The branch location to be created.
+     * @return The created branch location.
+     * @throws CustomException If there is an issue creating the location.
+     * @author Kamil Praseej
+     */
     @Override
     public BranchLocation createBranchLocation(BranchLocation location) throws CustomException {
         try {
@@ -31,6 +38,14 @@ public class BranchLocationServiceImpl implements BranchLocationService {
         }
     }
 
+    /**
+     * Retrieves a branch location by its ID.
+     * @param locationId The ID of the branch location to be retrieved.
+     * @return The branch location with the specified ID.
+     * @throws CustomException If the branch location with the given ID
+       is not found or if there is an issue fetching the location.
+     * @author Kamil Praseej
+     */
     @Override
     public BranchLocation getBranchLocationById(Long locationId) throws CustomException {
         try {
@@ -41,6 +56,12 @@ public class BranchLocationServiceImpl implements BranchLocationService {
         }
     }
 
+    /**
+     * Retrieves all branch locations.
+     * @return A list of all branch locations.
+     * @throws CustomException If there is an issue fetching the locations.
+     * @author Kamil Praseej
+     */
     @Override
     public List<BranchLocation> getAllBranchLocations() throws CustomException {
         try {
@@ -50,6 +71,14 @@ public class BranchLocationServiceImpl implements BranchLocationService {
         }
     }
 
+    /**
+     * Updates an existing branch location.
+     * @param locationId The ID of the branch location to be updated.
+     * @param location   The updated branch location information.
+     * @return The updated branch location.
+     * @throws CustomException If there is an issue updating the location.
+     * @author Kamil Praseej
+     */
     @Override
     public BranchLocation updateBranchLocation(Long locationId, BranchLocation location) throws CustomException {
         try {
@@ -60,6 +89,12 @@ public class BranchLocationServiceImpl implements BranchLocationService {
         }
     }
 
+    /**
+     * Deletes a branch location by its ID.
+     * @param locationId The ID of the branch location to be deleted.
+     * @throws CustomException If there is an issue deleting the location.
+     * @author Kamil Praseej
+     */
     @Override
     public void deleteBranchLocation(Long locationId) throws CustomException {
         try {
@@ -68,4 +103,5 @@ public class BranchLocationServiceImpl implements BranchLocationService {
             throw new CustomException("Failed to delete location.", e);
         }
     }
+
 }

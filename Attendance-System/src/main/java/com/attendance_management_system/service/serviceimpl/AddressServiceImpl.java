@@ -21,6 +21,13 @@ public class AddressServiceImpl implements AddressService {
         this.addressRepository = addressRepository;
     }
 
+    /**
+     * Creates a new address.
+     * @param address The address to be created.
+     * @return The created address.
+     * @throws CustomException If there is an issue creating the address.
+     * @author Kamil Praseej
+     */
     @Override
     public Address createAddress(Address address) throws CustomException {
         try {
@@ -30,6 +37,13 @@ public class AddressServiceImpl implements AddressService {
         }
     }
 
+    /**
+     * Retrieves an address by its ID.
+     * @param addressId The ID of the address to be retrieved.
+     * @return The address with the specified ID.
+     * @throws CustomException If the address with the given ID is not found or if there is an issue fetching the address.
+     * @author Kamil Praseej
+     */
     @Override
     public Address getAddressById(Long addressId) throws CustomException {
         try {
@@ -40,6 +54,14 @@ public class AddressServiceImpl implements AddressService {
         }
     }
 
+    /**
+     * Updates an existing address.
+     * @param addressId The ID of the address to be updated.
+     * @param address   The updated address information.
+     * @return The updated address.
+     * @throws CustomException If there is an issue updating the address.
+     * @author Kamil Praseej
+     */
     @Override
     public Address updateAddress(Long addressId, Address address) throws CustomException {
         try {
@@ -50,6 +72,12 @@ public class AddressServiceImpl implements AddressService {
         }
     }
 
+    /**
+     * Deletes an address by its ID.
+     * @param addressId The ID of the address to be deleted.
+     * @throws CustomException If there is an issue deleting the address.
+     * @author Kamil Praseej
+     */
     @Override
     public void deleteAddress(Long addressId) throws CustomException {
         try {
@@ -58,4 +86,5 @@ public class AddressServiceImpl implements AddressService {
             throw new CustomException("Failed to delete address.", e);
         }
     }
+
 }
