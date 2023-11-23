@@ -27,7 +27,6 @@ public class BranchLocationServiceImpl implements BranchLocationService {
      * @param location The branch location to be created.
      * @return The created branch location.
      * @throws CustomException If there is an issue creating the location.
-     * @author Kamil Praseej
      */
     @Override
     public BranchLocation createBranchLocation(BranchLocation location) throws CustomException {
@@ -44,7 +43,6 @@ public class BranchLocationServiceImpl implements BranchLocationService {
      * @return The branch location with the specified ID.
      * @throws CustomException If the branch location with the given ID
        is not found or if there is an issue fetching the location.
-     * @author Kamil Praseej
      */
     @Override
     public BranchLocation getBranchLocationById(Long locationId) throws CustomException {
@@ -60,7 +58,6 @@ public class BranchLocationServiceImpl implements BranchLocationService {
      * Retrieves all branch locations.
      * @return A list of all branch locations.
      * @throws CustomException If there is an issue fetching the locations.
-     * @author Kamil Praseej
      */
     @Override
     public List<BranchLocation> getAllBranchLocations() throws CustomException {
@@ -77,7 +74,6 @@ public class BranchLocationServiceImpl implements BranchLocationService {
      * @param location   The updated branch location information.
      * @return The updated branch location.
      * @throws CustomException If there is an issue updating the location.
-     * @author Kamil Praseej
      */
     @Override
     public BranchLocation updateBranchLocation(Long locationId, BranchLocation location) throws CustomException {
@@ -93,7 +89,6 @@ public class BranchLocationServiceImpl implements BranchLocationService {
      * Deletes a branch location by its ID.
      * @param locationId The ID of the branch location to be deleted.
      * @throws CustomException If there is an issue deleting the location.
-     * @author Kamil Praseej
      */
     @Override
     public void deleteBranchLocation(Long locationId) throws CustomException {

@@ -20,7 +20,6 @@ public class AddressController {
      * @param address The address information to be added.
      * @return The created address.
      * @throws CustomException If there is an issue creating the address.
-     * @author Kamil Praseej
      */
     @PostMapping("/add")
     public ResponseEntity<Address> createAddress(@RequestBody Address address) throws CustomException {
@@ -34,7 +33,6 @@ public class AddressController {
      * @return The address with the specified ID.
      * @throws CustomException If the address with the given ID
        is not found or if there is an issue fetching the address.
-     * @author Kamil Praseej
      */
     @GetMapping("/{addressId}")
     public ResponseEntity<Address> getAddress(@PathVariable Long addressId) throws CustomException {
@@ -48,7 +46,6 @@ public class AddressController {
      * @param address   The updated address information.
      * @return The updated address.
      * @throws CustomException If there is an issue updating the address.
-     * @author Kamil Praseej
      */
     @PutMapping("/update/{addressId}")
     public ResponseEntity<Address> updateAddress(
@@ -62,7 +59,6 @@ public class AddressController {
      * @param addressId The ID of the address to be deleted.
      * @return ResponseEntity with status NO_CONTENT.
      * @throws CustomException If there is an issue deleting the address.
-     * @author Kamil Praseej
      */
     @DeleteMapping("/delete/{addressId}")
     public ResponseEntity<Void> deleteAddress(@PathVariable Long addressId) throws CustomException {

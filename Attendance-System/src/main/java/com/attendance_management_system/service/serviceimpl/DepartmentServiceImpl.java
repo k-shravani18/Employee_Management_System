@@ -27,7 +27,6 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @param department The department to be created.
      * @return The created department.
      * @throws CustomException If there is an issue creating the department.
-     * @author Kamil Praseej
      */
     @Override
     public Department createDepartment(Department department) throws CustomException {
@@ -44,7 +43,6 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @return The department with the specified ID.
      * @throws CustomException If the department with the given ID
        is not found or if there is an issue fetching the department.
-     * @author Kamil Praseej
      */
     @Override
     public Department getDepartmentById(Long departmentId) throws CustomException {
@@ -60,7 +58,6 @@ public class DepartmentServiceImpl implements DepartmentService {
      * Retrieves all departments.
      * @return A list of all departments.
      * @throws CustomException If there is an issue fetching the departments.
-     * @author Kamil Praseej
      */
     @Override
     public List<Department> getAllDepartments() throws CustomException {
@@ -77,7 +74,6 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @param department   The updated department information.
      * @return The updated department.
      * @throws CustomException If there is an issue updating the department.
-     * @author Kamil Praseej
      */
     @Override
     public Department updateDepartment(Long departmentId, Department department) throws CustomException {
@@ -93,7 +89,6 @@ public class DepartmentServiceImpl implements DepartmentService {
      * Deletes a department by its ID.
      * @param departmentId The ID of the department to be deleted.
      * @throws CustomException If there is an issue deleting the department.
-     * @author Kamil Praseej
      */
     @Override
     public void deleteDepartment(Long departmentId) throws CustomException {

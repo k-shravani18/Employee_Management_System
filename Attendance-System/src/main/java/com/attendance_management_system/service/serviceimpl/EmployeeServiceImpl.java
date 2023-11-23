@@ -27,7 +27,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employee The employee object to be created.
      * @return The created employee.
      * @throws CustomException If there is an issue creating the employee.
-     * @author Kamil Praseej
      */
     @Override
     public Employee createEmployee(Employee employee) throws CustomException {
@@ -43,7 +42,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param email The email address of the employee.
      * @return The employee with the specified email address.
      * @throws CustomException If there is an issue fetching the employee.
-     * @author Kamil Praseej
      */
     @Override
     public Employee getEmployeeByEmailId(String email) throws CustomException {
@@ -59,7 +57,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param id The ID of the employee.
      * @return An optional containing the employee with the specified ID, if present.
      * @throws CustomException If there is an issue fetching the employee.
-     * @author Kamil Praseej
      */
     @Override
     public Optional<Employee> getEmployeeById(long id) throws CustomException {
@@ -74,7 +71,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * Retrieves a list of all employees.
      * @return The list of all employees.
      * @throws CustomException If there is an issue fetching the employees.
-     * @author Kamil Praseej
      */
     @Override
     public List<Employee> getAllEmployees() throws CustomException {
@@ -89,7 +85,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * Retrieves a list of all reporting managers.
      * @return The list of all reporting managers.
      * @throws CustomException If there is an issue fetching the reporting managers.
-     * @author Kamil Praseej
      */
     @Override
     public List<Employee> getAllReportingManagers() throws CustomException {
@@ -109,7 +104,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employee The updated employee details.
      * @return The updated employee.
      * @throws CustomException If there is an issue updating the employee.
-     * @author Kamil Praseej
      */
     @Override
     public Employee updateEmployee(String email, Employee employee) throws CustomException {
@@ -126,7 +120,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * Deletes an employee with the specified ID.
      * @param employeeId The ID of the employee to be deleted.
      * @throws CustomException If there is an issue deleting the employee.
-     * @author Kamil Praseej
      */
     @Override
     public void deleteEmployee(Long employeeId) throws CustomException {

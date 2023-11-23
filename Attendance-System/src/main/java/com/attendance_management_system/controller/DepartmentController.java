@@ -22,7 +22,6 @@ public class DepartmentController {
      * @param department The department information to be added.
      * @return The created department.
      * @throws CustomException If there is an issue creating the department.
-     * @author Kamil Praseej
      */
     @PostMapping("/add")
     public ResponseEntity<Department> createDepartment(
@@ -37,7 +36,6 @@ public class DepartmentController {
      * @return The department with the specified ID.
      * @throws CustomException If the department with the given ID
        is not found or if there is an issue fetching the department.
-     * @author Kamil Praseej
      */
     @GetMapping("/{departmentId}")
     public ResponseEntity<Department> getDepartment(

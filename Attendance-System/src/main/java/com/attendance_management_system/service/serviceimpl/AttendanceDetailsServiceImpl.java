@@ -49,7 +49,6 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
      * @param email    The email of the employee.
      * @param location The location where the check-in is being recorded.
      * @throws CustomException If there is an issue recording the check-in.
-     * @author Kamil Praseej
      */
     @Override
     public void checkIn(String email, String location) throws CustomException {
@@ -88,7 +87,6 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
      * @param email    The email of the employee.
      * @param location The location where the check-out is being recorded.
      * @throws CustomException If there is an issue recording the check-out.
-     * @author Kamil Praseej
      */
     @Override
     public void checkOut(String email, String location) throws CustomException {
@@ -118,7 +116,6 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
      * @param email The email of the employee.
      * @return The start time of the attendance.
      * @throws CustomException If there is an issue fetching the start time.
-     * @author Kamil Praseej
      */
     @Override
     public LocalDateTime fetchStartTime(String email) throws CustomException {
@@ -158,7 +155,6 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
      * @param endDate   The end date of the date range.
      * @return A map of attendance details for each date within the specified range.
      * @throws CustomException If there is an issue fetching the attendance details.
-     * @author Kamil Praseej
      */
     @Override
     public Map getAttendanceDetailsForEmployee(
@@ -187,7 +183,6 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
      * @param endDate   The end date of the date range.
      * @return A map of attendance details for each date within the specified range for all employees.
      * @throws CustomException If there is an issue fetching the attendance details.
-     * @author Kamil Praseej
      */
     @Override
     public Map getAttendanceDetailsForDateRange(LocalDate startDate, LocalDate endDate) throws CustomException {
@@ -212,7 +207,6 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
      * @param endDate   The end date of the date range.
      * @return A map of attendance details for each date within the specified range and location for all employees.
      * @throws CustomException If there is an issue fetching the attendance details.
-     * @author Kamil Praseej
      */
     @Override
     public Map getAttendanceDetailsForDateRangeAndLocation(

@@ -27,7 +27,6 @@ public class AttendanceController {
      * @param location Check-in location
      * @return ResponseEntity with check-in status
      * @throws RuntimeException in case of check-in failure
-     * @author Kamil Praseej
      */
     @PostMapping("/check-in/{email:.+}")
     public ResponseEntity<String> checkIn(
@@ -47,7 +46,6 @@ public class AttendanceController {
      * @param email    Employee email
      * @param location Check-out location
      * @return ResponseEntity with check-out status
-     * @author Kamil Praseej
      */
     @PostMapping("/check-out/{email:.+}")
     public ResponseEntity<String> checkOut(@PathVariable String email, @RequestParam String location) {
@@ -63,7 +61,6 @@ public class AttendanceController {
      * Endpoint to fetch the start time of attendance for a given email
      * @param email Employee email
      * @return ResponseEntity with the start time
-     * @author Kamil Praseej
      */
     @GetMapping("/fetch-start-time/{email:.+}")
     public ResponseEntity<LocalDateTime> fetchStartTime(@PathVariable String email) {
@@ -81,7 +78,6 @@ public class AttendanceController {
      * @param startDate Start date of the date range
      * @param endDate   End date of the date range
      * @return ResponseEntity with attendance details for the employee
-     * @author Kamil Praseej
      */
     @GetMapping("/employee/{email:.+}")
     public ResponseEntity getAttendanceDetailsForEmployee(
@@ -102,7 +98,6 @@ public class AttendanceController {
      * @param startDate Start date of the date range
      * @param endDate   End date of the date range
      * @return ResponseEntity with attendance details for all employees
-     * @author Kamil Praseej
      */
     @GetMapping("/employees/all")
     @ResponseBody
@@ -124,7 +119,6 @@ public class AttendanceController {
      * @param startDate Start date of the date range
      * @param endDate   End date of the date range
      * @return ResponseEntity with attendance details for all employees in the given location and date range
-     * @author Kamil Praseej
      */
     @GetMapping("/employees/location")
     @ResponseBody

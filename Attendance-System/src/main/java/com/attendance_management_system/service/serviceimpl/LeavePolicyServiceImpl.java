@@ -26,7 +26,6 @@ public class LeavePolicyServiceImpl implements LeavePolicyService {
      * @param leavePolicy The leave policy to be created.
      * @return The created leave policy.
      * @throws CustomException If there is an issue creating the leave policy.
-     * @author Kamil Praseej
      */
     @Override
     public LeavePolicy createLeavePolicy(LeavePolicy leavePolicy) throws CustomException {
@@ -42,7 +41,6 @@ public class LeavePolicyServiceImpl implements LeavePolicyService {
      * @param leavePolicyId The ID of the leave policy.
      * @return The leave policy with the specified ID.
      * @throws CustomException If there is an issue fetching the leave policy.
-     * @author Kamil Praseej
      */
     @Override
     public LeavePolicy getLeavePolicyById(Long leavePolicyId) throws CustomException {
@@ -58,7 +56,6 @@ public class LeavePolicyServiceImpl implements LeavePolicyService {
      * Retrieves a list of all leave policies.
      * @return The list of all leave policies.
      * @throws CustomException If there is an issue fetching the leave policies.
-     * @author Kamil Praseej
      */
     @Override
     public List<LeavePolicy> getAllLeavePolicies() throws CustomException {
@@ -75,7 +72,6 @@ public class LeavePolicyServiceImpl implements LeavePolicyService {
      * @param leavePolicy   The updated leave policy.
      * @return The updated leave policy.
      * @throws CustomException If there is an issue updating the leave policy.
-     * @author Kamil Praseej
      */
     @Override
     public LeavePolicy updateLeavePolicy(Long leavePolicyId, LeavePolicy leavePolicy) throws CustomException {
@@ -91,7 +87,6 @@ public class LeavePolicyServiceImpl implements LeavePolicyService {
      * Deletes a leave policy with the specified ID.
      * @param leavePolicyId The ID of the leave policy to be deleted.
      * @throws CustomException If there is an issue deleting the leave policy.
-     * @author Kamil Praseej
      */
     @Override
     public void deleteLeavePolicy(Long leavePolicyId) throws CustomException {

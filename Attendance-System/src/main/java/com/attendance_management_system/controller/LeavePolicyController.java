@@ -22,7 +22,6 @@ public class LeavePolicyController {
      * @param leavePolicy The leavePolicy information to be added.
      * @return The created leavePolicy.
      * @throws CustomException If there is an issue creating the leavePolicy.
-     * @author Kamil Praseej
      */
     @PostMapping("/add")
     public ResponseEntity<LeavePolicy> createLeavePolicy(
@@ -37,7 +36,6 @@ public class LeavePolicyController {
      * @return The leavePolicy with the specified ID.
      * @throws CustomException If the leavePolicy with the given ID
     is not found or if there is an issue fetching the leavePolicy.
-     * @author Kamil Praseej
      */
     @GetMapping("/{leavePolicyId}")
     public ResponseEntity<LeavePolicy> getLeavePolicy(@PathVariable Long leavePolicyId) throws CustomException {

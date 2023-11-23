@@ -19,7 +19,6 @@ public class DesignationController {
      * @param designation The designation information to be added.
      * @return The created designation.
      * @throws CustomException If there is an issue creating the designation.
-     * @author Kamil Praseej
      */
     @PostMapping("/add")
     public ResponseEntity<Designation> createDesignation(
@@ -34,7 +33,6 @@ public class DesignationController {
      * @return The designation with the specified ID.
      * @throws CustomException If the designation with the given ID
        is not found or if there is an issue fetching the designation.
-     * @author Kamil Praseej
      */
     @GetMapping("/{designationId}")
     public ResponseEntity<Designation> getDesignation(@PathVariable Long designationId) throws CustomException {
@@ -61,7 +59,6 @@ public class DesignationController {
      * @param designationId The ID of the designation to be deleted.
      * @return ResponseEntity with status NO_CONTENT.
      * @throws CustomException If there is an issue deleting the designation.
-     * @author Kamil Praseej
      */
     @DeleteMapping("/delete/{designationId}")
     public ResponseEntity<Void> deleteDesignation(@PathVariable Long designationId) throws CustomException {

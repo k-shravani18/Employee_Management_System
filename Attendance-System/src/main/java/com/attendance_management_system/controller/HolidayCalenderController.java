@@ -22,7 +22,6 @@ public class HolidayCalenderController {
      * @param holiday The holiday information to be added.
      * @return The created holiday in the calendar.
      * @throws CustomException If there is an issue creating the holiday.
-     * @author Kamil Praseej
      */
     @PostMapping("/add")
     public ResponseEntity<HolidayCalender> createHolidayCalender(
@@ -37,7 +36,6 @@ public class HolidayCalenderController {
      * @return The holiday with the specified ID.
      * @throws CustomException If the holiday with the given ID
        is not found or if there is an issue fetching the holiday.
-     * @author Kamil Praseej
      */
     @GetMapping("/{holidayId}")
     public ResponseEntity<HolidayCalender> getHolidayCalender(@PathVariable Long holidayId) throws CustomException {
@@ -49,7 +47,6 @@ public class HolidayCalenderController {
      * Retrieves all holidays from the holiday calendar.
      * @return A list of all holidays in the calendar.
      * @throws CustomException If there is an issue fetching the holidays.
-     * @author Kamil Praseej
      */
     @GetMapping("/getHolidayCalenders")
     public ResponseEntity<List<HolidayCalender>> getAllHolidayCalenders() throws CustomException {
@@ -63,7 +60,6 @@ public class HolidayCalenderController {
      * @param holiday   The updated holiday information.
      * @return The updated holiday in the calendar.
      * @throws CustomException If there is an issue updating the holiday.
-     * @author Kamil Praseej
      */
     @PutMapping("/update/{holidayId}")
     public ResponseEntity<HolidayCalender> updateHolidayCalender(
@@ -77,7 +73,6 @@ public class HolidayCalenderController {
      * @param holidayId The ID of the holiday to be deleted.
      * @return ResponseEntity with status NO_CONTENT.
      * @throws CustomException If there is an issue deleting the holiday.
-     * @author Kamil Praseej
      */
     @DeleteMapping("/delete/{holidayId}")
     public ResponseEntity<Void> deleteHolidayCalender(@PathVariable Long holidayId) throws CustomException {

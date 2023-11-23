@@ -30,7 +30,6 @@ public class EmailServiceImpl implements EmailService {
     /**
      * Sends a reminder email in the morning to the specified employee.
      * @param employee The employee to whom the reminder email is sent.
-     * @author Kamil Praseej
      */
     @Override
     public void sendReminderEmailMorning(Employee employee) {
@@ -58,7 +57,6 @@ public class EmailServiceImpl implements EmailService {
     /**
      * Sends a reminder email in the evening to the specified employee.
      * @param employee The employee to whom the reminder email is sent.
-     * @author Kamil Praseej
      */
     @Override
     public void sendReminderEmailEvening(Employee employee) {

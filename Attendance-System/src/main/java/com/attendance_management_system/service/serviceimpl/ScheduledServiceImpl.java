@@ -51,7 +51,6 @@ public class ScheduledServiceImpl implements ScheduledService {
     /**
      * Scheduled method to create an attendance log based on the current date,
      * marking it as a working day, weekend, or holiday.
-     * @author Kamil Praseej
      */
     @Override
     @Scheduled(cron = "0 01 00 * * ?")
@@ -74,7 +73,6 @@ public class ScheduledServiceImpl implements ScheduledService {
     /**
      * Scheduled method to send morning reminders to employees who need to check in.
      * @throws CustomException If there is an issue fetching data or sending reminders.
-     * @author Kamil Praseej
      */
     @Override
     @Scheduled(cron = "0 50,20,50 9,10 * * MON-FRI")
@@ -95,7 +93,6 @@ public class ScheduledServiceImpl implements ScheduledService {
     /**
      * Scheduled method to send evening reminders to employees who haven't checked out yet.
      * @throws CustomException If there is an issue fetching data or sending reminders.
-     * @author Kamil Praseej
      */
     @Override
     @Scheduled(cron = "0 20,50 18,19 * * MON-FRI")
@@ -119,7 +116,6 @@ public class ScheduledServiceImpl implements ScheduledService {
     /**
      * Scheduled method to create employee attendance entries based on the current date.
      * @throws CustomException If there is an issue fetching data or creating attendance entries.
-     * @author Kamil Praseej
      */
     @Override
     @Scheduled(cron = "0 02 00 * * MON-FRI")
@@ -148,7 +144,6 @@ public class ScheduledServiceImpl implements ScheduledService {
     /**
      * Scheduled method to mark leave for employees based on leave applications.
      * @throws CustomException If there is an issue fetching data or marking leaves.
-     * @author Kamil Praseej
      */
     @Override
     @Scheduled(cron = "0 00 10 * * MON-FRI")
@@ -170,7 +165,6 @@ public class ScheduledServiceImpl implements ScheduledService {
     /**
      * Scheduled method to mark employees as absent if they haven't checked in.
      * @throws CustomException If there is an issue fetching data or marking absences.
-     * @author Kamil Praseej
      */
     @Override
     @Scheduled(cron = "0 30 18 * * MON-FRI")
@@ -190,7 +184,6 @@ public class ScheduledServiceImpl implements ScheduledService {
     /**
      * Scheduled method to automatically check out employees at the end of the day.
      * @throws CustomException If there is an issue fetching data or checking out employees.
-     * @author Kamil Praseej
      */
     @Override
     @Scheduled(cron = "0 55 23 * * MON-FRI")

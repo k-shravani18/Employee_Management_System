@@ -28,7 +28,6 @@ public class LeaveApplicationController {
      * @param leaveApplication  Leave application data
      * @return ResponseEntity with the created leave application
      * @throws RuntimeException if there is an issue creating the leave application
-     * @author Kamil Praseej
      */
     @PostMapping("/add/{email:.+}")
     public ResponseEntity createLeaveApplication(
@@ -48,7 +47,6 @@ public class LeaveApplicationController {
      * @param status           New status of the leave application
      * @return ResponseEntity with the updated leave application
      * @throws RuntimeException if there is an issue updating the leave application
-     * @author Kamil Praseej
      */
     @PostMapping("/update")
     public ResponseEntity updateLeaveApplication(
@@ -67,7 +65,6 @@ public class LeaveApplicationController {
      * @param email Employee email
      * @return ResponseEntity with a list of leaves for the employee
      * @throws CustomException if there is an issue fetching leaves by category
-     * @author Kamil Praseej
      */
     @GetMapping("/fetch/{email:.+}")
     public ResponseEntity<List<EmployeeLeave>> getLeavesByCategory(@PathVariable String email) {
@@ -80,7 +77,6 @@ public class LeaveApplicationController {
      * Endpoint to get details of all leave applications
      * @return ResponseEntity with a list of all leave applications
      * @throws CustomException if there is an issue fetching leave applications details
-     * @author Kamil Praseej
      */
     @GetMapping("/getLeaveApplications")
     public ResponseEntity<List<LeaveApplication>> getAllLeaveApplications() throws CustomException {
@@ -93,7 +89,6 @@ public class LeaveApplicationController {
      * @param email Manager email
      * @return ResponseEntity with a list of leave applications for the manager
      * @throws CustomException if there is an issue fetching leave applications for the manager
-     * @author Kamil Praseej
      */
     @GetMapping("/getLeaveApplications/{email:.+}")
     public ResponseEntity<List<LeaveApplication>> getAllLeaveApplicationsForManager(
@@ -108,7 +103,6 @@ public class LeaveApplicationController {
      * @param leaveApplicationId Leave application ID to be deleted
      * @return ResponseEntity indicating success (NO_CONTENT)
      * @throws CustomException if there is an issue deleting the leave application
-     * @author Kamil Praseej
      */
     @DeleteMapping("/delete/{leaveApplicationId}")
     public ResponseEntity<Void> deleteLeaveApplication(

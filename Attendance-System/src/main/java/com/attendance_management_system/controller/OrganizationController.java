@@ -20,7 +20,6 @@ public class OrganizationController {
      * @param organization The organization to be created.
      * @return The created organization.
      * @throws CustomException If there is an issue creating the organization.
-     * @author Kamil Praseej
      */
     @PostMapping("/add")
     public ResponseEntity<Organization> createOrganization(
@@ -35,7 +34,6 @@ public class OrganizationController {
      * @return The organization with the specified ID.
      * @throws CustomException If the organization with the given ID
        is not found or if there is an issue fetching the organization.
-     * @author Kamil Praseej
      */
     @GetMapping("/{organizationId}")
     public ResponseEntity<Organization> getOrganization(@PathVariable Long organizationId) throws CustomException {
@@ -49,7 +47,6 @@ public class OrganizationController {
      * @param organization   The updated organization information.
      * @return The updated organization.
      * @throws CustomException If there is an issue updating the organization.
-     * @author Kamil Praseej
      */
     @PutMapping("/update/{organizationId}")
     public ResponseEntity<Organization> updateOrganization(
@@ -63,7 +60,6 @@ public class OrganizationController {
      * @param organizationId The ID of the organization to be deleted.
      * @return ResponseEntity with status NO_CONTENT.
      * @throws CustomException If there is an issue deleting the organization.
-     * @author Kamil Praseej
      */
     @DeleteMapping("/delete/{organizationId}")
     public ResponseEntity<Void> deleteOrganization(@PathVariable Long organizationId) throws CustomException {

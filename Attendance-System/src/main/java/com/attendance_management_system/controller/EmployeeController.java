@@ -22,7 +22,6 @@ public class EmployeeController {
      * @param employee New employee data
      * @return ResponseEntity with the created employee
      * @throws CustomException if there is an issue creating the employee
-     * @author Kamil Praseej
      */
     @PostMapping("/add")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) throws CustomException {
@@ -35,7 +34,6 @@ public class EmployeeController {
      * @param email Employee email
      * @return ResponseEntity with the employee details
      * @throws CustomException if the employee is not found
-     * @author Kamil Praseej
      */
     @GetMapping("/getEmployee/{email:.+}")
     public ResponseEntity<Employee> getEmployee(@PathVariable String email) throws CustomException {
@@ -47,7 +45,6 @@ public class EmployeeController {
      * Endpoint to get details of all employees
      * @return ResponseEntity with a list of all employees
      * @throws CustomException if there is an issue fetching employee details
-     * @author Kamil Praseej
      */
     @GetMapping("/getEmployees")
     public ResponseEntity<List<Employee>> getAllEmployees() throws CustomException {
@@ -59,7 +56,6 @@ public class EmployeeController {
      * Endpoint to get all reporting managers
      * @return ResponseEntity with a list of reporting managers
      * @throws CustomException if there is an issue fetching reporting managers
-     * @author Kamil Praseej
      */
     @GetMapping("/getReportingManagers")
     public ResponseEntity<List<Employee>> getAllReportingManagers() throws CustomException {
@@ -73,7 +69,6 @@ public class EmployeeController {
      * @param employee Updated employee data
      * @return ResponseEntity with the updated employee
      * @throws CustomException if there is an issue updating the employee
-     * @author Kamil Praseej
      */
     @PutMapping("/update/{email:.+}")
     public ResponseEntity<Employee> updateEmployee(
@@ -87,7 +82,6 @@ public class EmployeeController {
      * @param employeeId Employee ID to be deleted
      * @return ResponseEntity indicating success (NO_CONTENT)
      * @throws CustomException if there is an issue deleting the employee
-     * @author Kamil Praseej
      */
     @DeleteMapping("/delete/{employeeId}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long employeeId) throws CustomException {

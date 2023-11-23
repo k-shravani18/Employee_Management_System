@@ -55,7 +55,6 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * @return The created leave application.
      * @throws CustomException If there is an issue creating the leave application
        or if there are insufficient leaves.
-     * @author Kamil Praseej
      */
     @Override
     public LeaveApplication createLeaveApplication(
@@ -101,7 +100,6 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * @param employee    The employee for whom leaves are calculated.
      * @param leavePolicy The leave policy for which leaves are calculated.
      * @return The total number of leaves taken.
-     * @author Kamil Praseej
      */
     private int getTotalNumberOfLeavesTaken(Employee employee, LeavePolicy leavePolicy) {
         List<LeaveApplication> leaveApplications = leaveApplicationRepository
@@ -119,7 +117,6 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * Retrieves a list of leaves by category for the specified employee.
      * @param employee The employee for whom leaves are fetched.
      * @return The list of leaves by category.
-     * @author Kamil Praseej
      */
     @Override
     public List<EmployeeLeave> getLeavesByCategory(Employee employee) {
@@ -138,7 +135,6 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * @param leaveApplicationId The ID of the leave application.
      * @return The leave application with the specified ID.
      * @throws CustomException If there is an issue fetching the leave application.
-     * @author Kamil Praseej
      */
     @Override
     public LeaveApplication getLeaveApplicationById(Long leaveApplicationId) throws CustomException {
@@ -154,7 +150,6 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * Retrieves a list of all leave applications.
      * @return The list of all leave applications.
      * @throws CustomException If there is an issue fetching the leave applications.
-     * @author Kamil Praseej
      */
     @Override
     public List<LeaveApplication> getAllLeaveApplications() throws CustomException {
@@ -170,7 +165,6 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * @param email The email address of the manager.
      * @return The list of leave applications for the specified manager.
      * @throws CustomException If there is an issue fetching the leave applications.
-     * @author Kamil Praseej
      */
     @Override
     public List<LeaveApplication> getAllLeaveApplicationsByManager(String email) throws CustomException {
@@ -194,7 +188,6 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * @param status           The status to be set (approved or denied).
      * @return The updated leave application.
      * @throws CustomException If there is an issue updating the leave application.
-     * @author Kamil Praseej
      */
     @Override
     public LeaveApplication updateLeaveApplication(
@@ -226,7 +219,6 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * Deletes a leave application with the specified ID.
      * @param leaveApplicationId The ID of the leave application to be deleted.
      * @throws CustomException If there is an issue deleting the leave application.
-     * @author Kamil Praseej
      */
     @Override
     public void deleteLeaveApplication(Long leaveApplicationId) throws CustomException {
@@ -242,7 +234,6 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      * @param startDate The start date.
      * @param endDate   The end date.
      * @return The number of days between the start and end dates inclusive.
-     * @author Kamil Praseej
      */
     public int calculateNumberOfDaysInclusive(LocalDate startDate, LocalDate endDate) {
         return (int) (ChronoUnit.DAYS.between(startDate, endDate) + 1);

@@ -26,7 +26,6 @@ public class AddressServiceImpl implements AddressService {
      * @param address The address to be created.
      * @return The created address.
      * @throws CustomException If there is an issue creating the address.
-     * @author Kamil Praseej
      */
     @Override
     public Address createAddress(Address address) throws CustomException {
@@ -43,7 +42,6 @@ public class AddressServiceImpl implements AddressService {
      * @return The address with the specified ID.
      * @throws CustomException If the address with the given ID
        is not found or if there is an issue fetching the address.
-     * @author Kamil Praseej
      */
     @Override
     public Address getAddressById(Long addressId) throws CustomException {
@@ -61,7 +59,6 @@ public class AddressServiceImpl implements AddressService {
      * @param address   The updated address information.
      * @return The updated address.
      * @throws CustomException If there is an issue updating the address.
-     * @author Kamil Praseej
      */
     @Override
     public Address updateAddress(Long addressId, Address address) throws CustomException {
@@ -77,7 +74,6 @@ public class AddressServiceImpl implements AddressService {
      * Deletes an address by its ID.
      * @param addressId The ID of the address to be deleted.
      * @throws CustomException If there is an issue deleting the address.
-     * @author Kamil Praseej
      */
     @Override
     public void deleteAddress(Long addressId) throws CustomException {

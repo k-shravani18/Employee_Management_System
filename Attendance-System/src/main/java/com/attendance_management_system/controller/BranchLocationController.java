@@ -22,7 +22,6 @@ public class BranchLocationController {
      * @param location The branch location information to be added.
      * @return The created branch location.
      * @throws CustomException If there is an issue creating the branch location.
-     * @author Kamil Praseej
      */
     @PostMapping("/add")
     public ResponseEntity<BranchLocation> createBranchLocation(
@@ -37,7 +36,6 @@ public class BranchLocationController {
      * @return The branch location with the specified ID.
      * @throws CustomException If the branch location with the given ID
        is not found or if there is an issue fetching the branch location.
-     * @author Kamil Praseej
      */
     @GetMapping("/{locationId}")
     public ResponseEntity<BranchLocation> getBranchLocation(@PathVariable Long locationId) throws CustomException {
@@ -49,7 +47,6 @@ public class BranchLocationController {
      * Retrieves all branch locations.
      * @return List of all branch locations.
      * @throws CustomException If there is an issue fetching the branch locations.
-     * @author Kamil Praseej
      */
     @GetMapping("/getBranchLocations")
     public ResponseEntity<List<BranchLocation>> getAllBranchLocations() throws CustomException {
@@ -63,7 +60,6 @@ public class BranchLocationController {
      * @param location   The updated branch location information.
      * @return The updated branch location.
      * @throws CustomException If there is an issue updating the branch location.
-     * @author Kamil Praseej
      */
     @PutMapping("/update/{locationId}")
     public ResponseEntity<BranchLocation> updateBranchLocation(
@@ -77,7 +73,6 @@ public class BranchLocationController {
      * @param locationId The ID of the branch location to be deleted.
      * @return ResponseEntity with status NO_CONTENT.
      * @throws CustomException If there is an issue deleting the branch location.
-     * @author Kamil Praseej
      */
     @DeleteMapping("/delete/{locationId}")
     public ResponseEntity<Void> deleteBranchLocation(@PathVariable Long locationId) throws CustomException {
