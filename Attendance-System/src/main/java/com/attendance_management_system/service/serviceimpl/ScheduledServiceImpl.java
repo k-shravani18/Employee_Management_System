@@ -81,10 +81,8 @@ public class ScheduledServiceImpl implements ScheduledService {
             if (!checkHolidays()) {
                 employeeRepository.findAll()
                         .stream()
-                        .filter(employee -> employeeStatusCheck(employee))
-                        .forEach(employee -> {
-                        emailService.sendReminderEmailMorning(employee);
-                });
+                        .filter(this::employeeStatusCheck)
+                        .forEach(employee -> emailService.sendReminderEmailMorning(employee));
             }
         } catch (DataAccessException e) {
             throw new CustomException("Unable to fetch data", e);
