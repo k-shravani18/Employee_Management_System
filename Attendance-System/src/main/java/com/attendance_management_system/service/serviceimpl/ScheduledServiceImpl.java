@@ -79,10 +79,11 @@ public class ScheduledServiceImpl implements ScheduledService {
     public void morningRemainder() throws CustomException {
         try {
             if (!checkHolidays()) {
-                employeeRepository.findAll().forEach(employee -> {
-                    if (employeeStatusCheck(employee)) {
+                employeeRepository.findAll()
+                        .stream()
+                        .filter(employee -> employeeStatusCheck(employee))
+                        .forEach(employee -> {
                         emailService.sendReminderEmailMorning(employee);
-                    }
                 });
             }
         } catch (DataAccessException e) {
