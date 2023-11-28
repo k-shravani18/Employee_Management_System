@@ -24,7 +24,7 @@ public class EmployeeController {
      * @throws CustomException if there is an issue creating the employee
      */
     @PostMapping("/add")
-    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) throws CustomException {
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) throws CustomException, RuntimeException {
         Employee createdEmployee = employeeService.createEmployee(employee);
         return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
     }

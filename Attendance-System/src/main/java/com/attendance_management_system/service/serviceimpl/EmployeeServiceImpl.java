@@ -1,7 +1,14 @@
 package com.attendance_management_system.service.serviceimpl;
 
+import com.attendance_management_system.exceptions.DesignationOrLocationNotFoundException;
+import com.attendance_management_system.model.Address;
+import com.attendance_management_system.model.BranchLocation;
+import com.attendance_management_system.model.Designation;
 import com.attendance_management_system.model.Employee;
 import com.attendance_management_system.exceptions.CustomException;
+import com.attendance_management_system.repository.AddressRepository;
+import com.attendance_management_system.repository.BranchLocationRepository;
+import com.attendance_management_system.repository.DesignationRepository;
 import com.attendance_management_system.repository.EmployeeRepository;
 import com.attendance_management_system.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +24,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
+    private final AddressRepository addressRepository;
+
+    private final DesignationRepository designationRepository;
+
+    private final BranchLocationRepository locationRepository;
+
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, AddressRepository addressRepository, DesignationRepository designationRepository, BranchLocationRepository locationRepository) {
         this.employeeRepository = employeeRepository;
+        this.addressRepository = addressRepository;
+        this.designationRepository = designationRepository;
+        this.locationRepository = locationRepository;
     }
 
     /**
@@ -27,13 +43,27 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employee The employee object to be created.
      * @return The created employee.
      * @throws CustomException If there is an issue creating the employee.
+     * @throws RuntimeException If there is an issue with location or designation.
      */
     @Override
     public Employee createEmployee(Employee employee) throws CustomException {
         try {
-            return employeeRepository.save(employee);
+            Address address = addressRepository.save(employee.getAddress());
+            employee.setAddress(address);
+            Optional<Designation> designation = designationRepository.findById(employee.getDesignation().getDesignationId());
+            Optional<BranchLocation> location = locationRepository.findById(employee.getLocation().getLocationId());
+            if(designation.isPresent() && location.isPresent()){
+                employee.setDesignation(designation.get());
+                employee.setLocation(location.get());
+                return employeeRepository.save(employee);
+            }
+            else {
+                throw new DesignationOrLocationNotFoundException("Designation or Location not found");
+            }
         } catch (DataAccessException e) {
             throw new CustomException("Failed to create employee.", e);
+        } catch (DesignationOrLocationNotFoundException e) {
+            throw new RuntimeException("Designation or Location not found",e);
         }
     }
 

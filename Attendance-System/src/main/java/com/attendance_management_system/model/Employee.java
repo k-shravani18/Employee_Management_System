@@ -33,13 +33,16 @@ public class Employee {
 
     private String reportingManager;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "designation_id")
     private Designation designation;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id")
     private BranchLocation location;
 
 }
