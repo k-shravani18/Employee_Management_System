@@ -84,7 +84,7 @@ public class EmployeeController {
      * @throws CustomException if there is an issue deleting the employee
      */
     @DeleteMapping("/delete/{employeeId}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Long employeeId) throws CustomException {
+    public ResponseEntity<Void> deleteEmployee(@PathVariable String  employeeId) throws CustomException {
         employeeService.deleteEmployee(employeeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

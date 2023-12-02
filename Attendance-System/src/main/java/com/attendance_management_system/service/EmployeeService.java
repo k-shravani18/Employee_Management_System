@@ -11,10 +11,10 @@ import java.util.Optional;
 public interface EmployeeService {
     Employee createEmployee(Employee employee) throws CustomException;
     Employee getEmployeeByEmailId(String email) throws CustomException;
-    Optional<Employee> getEmployeeById(long id) throws CustomException;
+    Optional<Employee> getEmployeeById(String  id) throws CustomException;
     List<Employee> getAllEmployees() throws CustomException;
     Employee updateEmployee(String  email, Employee employee) throws CustomException;
-    void deleteEmployee(Long employeeId) throws CustomException;
+    void deleteEmployee(String  employeeId) throws CustomException;
 
     List<Employee> getAllReportingManagers() throws CustomException;
 }

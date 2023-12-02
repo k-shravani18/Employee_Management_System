@@ -6,10 +6,8 @@ import com.attendance_management_system.model.BranchLocation;
 import com.attendance_management_system.model.Designation;
 import com.attendance_management_system.model.Employee;
 import com.attendance_management_system.exceptions.CustomException;
-import com.attendance_management_system.repository.AddressRepository;
-import com.attendance_management_system.repository.BranchLocationRepository;
-import com.attendance_management_system.repository.DesignationRepository;
-import com.attendance_management_system.repository.EmployeeRepository;
+import com.attendance_management_system.model.id.CustomId;
+import com.attendance_management_system.repository.*;
 import com.attendance_management_system.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -30,12 +28,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final BranchLocationRepository locationRepository;
 
+    private final CustomIdRepository customIdRepository;
+
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, AddressRepository addressRepository, DesignationRepository designationRepository, BranchLocationRepository locationRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository,
+                               AddressRepository addressRepository,
+                               DesignationRepository designationRepository,
+                               BranchLocationRepository locationRepository,
+                               CustomIdRepository customIdRepository) {
         this.employeeRepository = employeeRepository;
         this.addressRepository = addressRepository;
         this.designationRepository = designationRepository;
         this.locationRepository = locationRepository;
+        this.customIdRepository = customIdRepository;
     }
 
     /**
@@ -53,6 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             Optional<Designation> designation = designationRepository.findById(employee.getDesignation().getDesignationId());
             Optional<BranchLocation> location = locationRepository.findById(employee.getLocation().getLocationId());
             if(designation.isPresent() && location.isPresent()){
+                employee.setEmployeeId(generateCustomEmployeeId());
                 employee.setDesignation(designation.get());
                 employee.setLocation(location.get());
                 return employeeRepository.save(employee);
@@ -89,7 +95,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @throws CustomException If there is an issue fetching the employee.
      */
     @Override
-    public Optional<Employee> getEmployeeById(long id) throws CustomException {
+    public Optional<Employee> getEmployeeById(String id) throws CustomException {
         try {
             return employeeRepository.findById(id);
         } catch (DataAccessException e) {
@@ -152,11 +158,31 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @throws CustomException If there is an issue deleting the employee.
      */
     @Override
-    public void deleteEmployee(Long employeeId) throws CustomException {
+    public void deleteEmployee(String employeeId) throws CustomException {
         try {
             employeeRepository.deleteById(employeeId);
         } catch (DataAccessException e) {
             throw new CustomException("Failed to delete employee.", e);
         }
     }
+
+    /**
+     * Method to generate a custom user ID in three_digit format,
+       it retrieves the current value of the next employee ID and updates the next employeeID
+     * @return
+     */
+    public String generateCustomEmployeeId() throws CustomException {
+        try {
+            CustomId nextId = customIdRepository.findById("employeeId").orElse(new CustomId("employeeId", 0));
+
+            int currentNextId = nextId.getNextEmployeeId();
+            String sequentialId = String.format("%03d", currentNextId + 1);
+            nextId.setNextEmployeeId(currentNextId + 1);
+            customIdRepository.save(nextId);
+            return "PD-" + sequentialId;
+        } catch (DataAccessException e) {
+            throw new CustomException("Failed to create employeeId.", e);
+        }
+    }
+
 }

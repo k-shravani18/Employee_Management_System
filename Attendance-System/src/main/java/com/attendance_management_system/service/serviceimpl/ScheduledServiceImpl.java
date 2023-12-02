@@ -53,7 +53,7 @@ public class ScheduledServiceImpl implements ScheduledService {
      * marking it as a working day, weekend, or holiday.
      */
     @Override
-    @Scheduled(cron = "0 01 00 * * ?")
+    @Scheduled(cron = "0 36 11 * * ?")
     public void createAttendanceLog() {
         Attendance attendance = new Attendance();
         LocalDate date = LocalDate.now();
@@ -70,47 +70,6 @@ public class ScheduledServiceImpl implements ScheduledService {
         attendanceRepository.save(attendance);
     }
 
-    /**
-     * Scheduled method to send morning reminders to employees who need to check in.
-     * @throws CustomException If there is an issue fetching data or sending reminders.
-     */
-    @Override
-    @Scheduled(cron = "0 50,20,50 9,10 * * MON-FRI")
-    public void morningRemainder() throws CustomException {
-        try {
-            if (!checkHolidays()) {
-                employeeRepository.findAll()
-                        .stream()
-                        .filter(this::employeeStatusCheck)
-                        .forEach(employee -> emailService.sendReminderEmailMorning(employee));
-            }
-        } catch (DataAccessException e) {
-            throw new CustomException("Unable to fetch data", e);
-        }
-    }
-
-    /**
-     * Scheduled method to send evening reminders to employees who haven't checked out yet.
-     * @throws CustomException If there is an issue fetching data or sending reminders.
-     */
-    @Override
-    @Scheduled(cron = "0 20,50 18,19 * * MON-FRI")
-    public void eveningRemainder() throws CustomException {
-        try {
-            if (!checkHolidays()) {
-                employeeRepository.findAll().forEach(employee -> {
-                    AttendanceDetails attendanceDetails = getAttendanceDetails(employee);
-
-                    if (attendanceDetails.getCheckOutTime() == null &&
-                            attendanceDetails.getStatus().equals(AttendanceStatus.PRESENT)) {
-                        emailService.sendReminderEmailEvening(employee);
-                    }
-                });
-            }
-        } catch (DataAccessException e) {
-            throw new CustomException("Unable to fetch data", e);
-        }
-    }
 
     /**
      * Scheduled method to create employee attendance entries based on the current date.
@@ -196,6 +155,48 @@ public class ScheduledServiceImpl implements ScheduledService {
                         attendanceDetails.setCheckOutLocation("Nil");
                         attendanceDetails.setTotalTime(510);
                         attendanceDetailsRepository.save(attendanceDetails);
+                    }
+                });
+            }
+        } catch (DataAccessException e) {
+            throw new CustomException("Unable to fetch data", e);
+        }
+    }
+
+    /**
+     * Scheduled method to send morning reminders to employees who need to check in.
+     * @throws CustomException If there is an issue fetching data or sending reminders.
+     */
+    @Override
+    @Scheduled(cron = "0 50,20,50 9,10 * * MON-FRI")
+    public void morningRemainder() throws CustomException {
+        try {
+            if (!checkHolidays()) {
+                employeeRepository.findAll()
+                        .stream()
+                        .filter(this::employeeStatusCheck)
+                        .forEach(employee -> emailService.sendReminderEmailMorning(employee));
+            }
+        } catch (DataAccessException e) {
+            throw new CustomException("Unable to fetch data", e);
+        }
+    }
+
+    /**
+     * Scheduled method to send evening reminders to employees who haven't checked out yet.
+     * @throws CustomException If there is an issue fetching data or sending reminders.
+     */
+    @Override
+    @Scheduled(cron = "0 20,50 18,19 * * MON-FRI")
+    public void eveningRemainder() throws CustomException {
+        try {
+            if (!checkHolidays()) {
+                employeeRepository.findAll().forEach(employee -> {
+                    AttendanceDetails attendanceDetails = getAttendanceDetails(employee);
+
+                    if (attendanceDetails.getCheckOutTime() == null &&
+                            attendanceDetails.getStatus().equals(AttendanceStatus.PRESENT)) {
+                        emailService.sendReminderEmailEvening(employee);
                     }
                 });
             }
