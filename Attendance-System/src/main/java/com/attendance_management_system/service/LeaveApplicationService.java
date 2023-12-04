@@ -13,7 +13,7 @@ public interface LeaveApplicationService {
     List getLeavesByCategory(Employee employee);
     LeaveApplication getLeaveApplicationById(Long leaveApplicationId) throws CustomException;
     List<LeaveApplication> getAllLeaveApplications() throws CustomException;
-    LeaveApplication updateLeaveApplication(LeaveApplication leaveApplication, String status) throws CustomException;
+    LeaveApplication updateLeaveApplication(Long leaveApplicationId, String status) throws CustomException;
     void deleteLeaveApplication(Long leaveApplicationId) throws CustomException;
 
     List<LeaveApplication> getAllLeaveApplicationsByManager(String email) throws CustomException;

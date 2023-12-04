@@ -4,6 +4,7 @@ import com.attendance_management_system.constants.AttendanceStatus;
 import com.attendance_management_system.constants.LeaveStatus;
 import com.attendance_management_system.exceptions.CustomException;
 import com.attendance_management_system.exceptions.InsufficientLeavesException;
+import com.attendance_management_system.exceptions.LeaveApplicationNotFoundException;
 import com.attendance_management_system.exceptions.ResourceNotFoundException;
 import com.attendance_management_system.model.AttendanceDetails;
 import com.attendance_management_system.model.Employee;
@@ -184,36 +185,50 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 
     /**
      * Updates the status of a leave application based on the specified status.
-     * @param leaveApplication The leave application to be updated.
+     * @param leaveApplicationId The leave applicationId to be updated.
      * @param status           The status to be set (approved or denied).
      * @return The updated leave application.
      * @throws CustomException If there is an issue updating the leave application.
      */
     @Override
-    public LeaveApplication updateLeaveApplication(
-            LeaveApplication leaveApplication, String status) throws CustomException {
+    public LeaveApplication updateLeaveApplication(Long leaveApplicationId, String status) throws CustomException {
         try {
-            if (status.equalsIgnoreCase("approved")) {
-                leaveApplication.setStatus(LeaveStatus.APPROVED.getValue());
+            Optional<LeaveApplication> leaveApplicationOptional =
+                    leaveApplicationRepository.findById(leaveApplicationId);
+
+            if (leaveApplicationOptional.isPresent()) {
+                LeaveApplication leaveApplication = leaveApplicationOptional.get();
+
+                if (status.equalsIgnoreCase("approved")) {
+                    leaveApplication.setStatus(LeaveStatus.APPROVED.getValue());
+                } else {
+                    LocalDate startDate = leaveApplication.getFromDate();
+                    LocalDate endDate = leaveApplication.getToDate();
+                    startDate.datesUntil(endDate).forEach(date -> {
+
+                        if (date.isBefore(LocalDate.now()) || date.isEqual(LocalDate.now())) {
+                            AttendanceDetails attendanceDetails =
+                                    attendanceDetailsRepository.findByEmployeeAndAttendance
+                                            (leaveApplication.getEmployee(), attendanceRepository.findByDate(date));
+                            attendanceDetails.setStatus(AttendanceStatus.ABSENT);
+                            attendanceDetailsRepository.save(attendanceDetails);
+                        }
+                    });
+
+                    leaveApplication.setStatus(LeaveStatus.DENIED.getValue());
+                }
+
+                return leaveApplicationRepository.save(leaveApplication);
             } else {
-                LocalDate startDate = leaveApplication.getFromDate();
-                LocalDate endDate = leaveApplication.getToDate();
-                startDate.datesUntil(endDate).forEach(date -> {
-                    if (date.isBefore(LocalDate.now()) || date.isEqual(LocalDate.now())) {
-                        AttendanceDetails attendanceDetails =
-                                attendanceDetailsRepository.findByEmployeeAndAttendance
-                                        (leaveApplication.getEmployee(), attendanceRepository.findByDate(date));
-                        attendanceDetails.setStatus(AttendanceStatus.ABSENT);
-                        attendanceDetailsRepository.save(attendanceDetails);
-                    }
-                });
-                leaveApplication.setStatus(LeaveStatus.DENIED.getValue());
+                throw new LeaveApplicationNotFoundException("Leave Application Not found for this Id");
             }
-            return leaveApplicationRepository.save(leaveApplication);
         } catch (DataAccessException e) {
             throw new CustomException("Failed to update leave application.", e);
+        } catch (LeaveApplicationNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
+
 
     /**
      * Deletes a leave application with the specified ID.

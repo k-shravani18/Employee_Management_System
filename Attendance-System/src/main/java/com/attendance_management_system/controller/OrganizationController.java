@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/organization")
+@CrossOrigin("*")
 public class OrganizationController {
 
     @Autowired

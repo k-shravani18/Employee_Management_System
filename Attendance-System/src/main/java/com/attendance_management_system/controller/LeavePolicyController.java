@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/leavePolicies")
+@CrossOrigin("*")
 public class LeavePolicyController {
 
     @Autowired

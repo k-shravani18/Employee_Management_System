@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/addresses")
+@CrossOrigin("*")
 public class AddressController {
 
     @Autowired

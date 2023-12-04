@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/leaveApplications")
+@CrossOrigin("*")
 public class LeaveApplicationController {
 
     @Autowired
@@ -43,17 +44,18 @@ public class LeaveApplicationController {
 
     /**
      * Endpoint to update the status of a leave application
-     * @param leaveApplication Leave application data
+     * @param leaveApplicationId Leave application data
      * @param status           New status of the leave application
      * @return ResponseEntity with the updated leave application
      * @throws RuntimeException if there is an issue updating the leave application
      */
-    @PostMapping("/update")
+    @PostMapping("/update/{leaveApplicationId}")
     public ResponseEntity updateLeaveApplication(
-            @RequestBody LeaveApplication leaveApplication, String status) throws RuntimeException {
+            @RequestParam String status, @PathVariable Long leaveApplicationId) throws RuntimeException {
         LeaveApplication updatedLeaveApplication;
         try {
-            updatedLeaveApplication = leaveApplicationService.updateLeaveApplication(leaveApplication, status);
+            System.out.println("\n\n Status:" + status+"\n\n");
+            updatedLeaveApplication = leaveApplicationService.updateLeaveApplication(leaveApplicationId, status);
             return new ResponseEntity<>(updatedLeaveApplication, HttpStatus.CREATED);
         } catch (CustomException e) {
             return ResponseEntity.ok(e.getMessage());
