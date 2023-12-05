@@ -7,6 +7,7 @@ import com.attendance_management_system.model.AttendanceDetails;
 import com.attendance_management_system.model.Employee;
 import com.attendance_management_system.exceptions.AlreadyCheckedInException;
 import com.attendance_management_system.exceptions.CustomException;
+import com.attendance_management_system.model.payload.AttendanceTime;
 import com.attendance_management_system.repository.AttendanceDetailsRepository;
 import com.attendance_management_system.repository.AttendanceRepository;
 import com.attendance_management_system.repository.BranchLocationRepository;
@@ -113,12 +114,13 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
 
     /**
      * Fetches the start time of the attendance for the specified email.
+     *
      * @param email The email of the employee.
      * @return The start time of the attendance.
      * @throws CustomException If there is an issue fetching the start time.
      */
     @Override
-    public LocalDateTime fetchStartTime(String email) throws CustomException {
+    public AttendanceTime fetchStartTime(String email) throws CustomException {
         try {
             Employee employee = employeeRepository.findByEmailId(email);
 
@@ -127,7 +129,11 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
                     attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance);
 
             if (attendanceDetails.getCheckOutTime() == null && attendanceDetails.getCheckInTime() != null) {
-                return attendanceDetails.getCheckInTime();
+                AttendanceTime attendanceTime = new AttendanceTime();
+                attendanceTime.setTime(attendanceDetails.getCheckInTime());
+                attendanceTime.setStatus("IN");
+                return attendanceTime;
+
             } else if (attendanceDetails.getCheckOutTime() != null) {
                 Duration duration = calculateTimeDifference(
                         attendanceDetails.getCheckInTime(), attendanceDetails.getCheckOutTime());
@@ -136,12 +142,17 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                 LocalTime time = LocalTime.parse(formattedTime, formatter);
                 LocalDate today = LocalDate.now();
-
-                return LocalDateTime.of(today, time);
+                AttendanceTime attendanceTime = new AttendanceTime();
+                attendanceTime.setTime(LocalDateTime.of(today, time));
+                attendanceTime.setStatus("PRESENT");
+                return attendanceTime;
             } else {
                 LocalDate today = LocalDate.now();
                 LocalTime midnight = LocalTime.MIDNIGHT;
-                return LocalDateTime.of(today, midnight);
+                AttendanceTime attendanceTime = new AttendanceTime();
+                attendanceTime.setTime(LocalDateTime.of(today, midnight));
+                attendanceTime.setStatus("OUT");
+                return attendanceTime;
             }
         } catch (DataAccessException e) {
             throw new CustomException("Unable to fetch data", e);

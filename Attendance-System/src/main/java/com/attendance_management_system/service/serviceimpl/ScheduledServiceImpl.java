@@ -53,7 +53,7 @@ public class ScheduledServiceImpl implements ScheduledService {
      * marking it as a working day, weekend, or holiday.
      */
     @Override
-    @Scheduled(cron = "0 36 11 * * ?")
+    @Scheduled(cron = "0 27 10 * * ?")
     public void createAttendanceLog() {
         Attendance attendance = new Attendance();
         LocalDate date = LocalDate.now();
@@ -76,7 +76,7 @@ public class ScheduledServiceImpl implements ScheduledService {
      * @throws CustomException If there is an issue fetching data or creating attendance entries.
      */
     @Override
-    @Scheduled(cron = "0 02 00 * * MON-FRI")
+    @Scheduled(cron = "0 28 10 * * MON-FRI")
     public void createEmployeeAttendance() throws CustomException {
         try {
             if (!checkHolidays()) {

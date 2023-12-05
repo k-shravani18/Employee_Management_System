@@ -2,6 +2,7 @@ package com.attendance_management_system.controller;
 
 import com.attendance_management_system.exceptions.CustomException;
 import com.attendance_management_system.model.AttendanceDetails;
+import com.attendance_management_system.model.payload.AttendanceTime;
 import com.attendance_management_system.service.AttendanceDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -64,12 +65,12 @@ public class AttendanceController {
      * @return ResponseEntity with the start time
      */
     @GetMapping("/fetch-start-time/{email:.+}")
-    public ResponseEntity<LocalDateTime> fetchStartTime(@PathVariable String email) {
+    public ResponseEntity<AttendanceTime> fetchStartTime(@PathVariable String email) {
         try {
-            LocalDateTime startTime = attendanceDetailsService.fetchStartTime(email);
-            return ResponseEntity.ok(startTime);
+            AttendanceTime attendanceTime = attendanceDetailsService.fetchStartTime(email);
+            return ResponseEntity.ok(attendanceTime);
         } catch (CustomException e) {
-            return (ResponseEntity<LocalDateTime>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+            return (ResponseEntity<AttendanceTime>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
