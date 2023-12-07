@@ -1,5 +1,6 @@
 package com.attendance_management_system.service.serviceimpl;
 
+import com.attendance_management_system.exceptions.DepartmentAlreadyExistsException;
 import com.attendance_management_system.model.Department;
 import com.attendance_management_system.exceptions.CustomException;
 import com.attendance_management_system.repository.DepartmentRepository;
@@ -31,9 +32,15 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department createDepartment(Department department) throws CustomException {
         try {
-            return departmentRepository.save(department);
+            if(!departmentRepository.existsByDepartmentName(department.getDepartmentName())){
+            return departmentRepository.save(department);}
+            else {
+                throw new DepartmentAlreadyExistsException("The department is already exists");
+            }
         } catch (DataAccessException e) {
             throw new CustomException("Failed to create department.", e);
+        } catch (DepartmentAlreadyExistsException e) {
+            throw new RuntimeException("The department is already exists",e);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.attendance_management_system.service.serviceimpl;
 
+import com.attendance_management_system.exceptions.LocationAlreadyExistsException;
 import com.attendance_management_system.model.BranchLocation;
 import com.attendance_management_system.exceptions.CustomException;
 import com.attendance_management_system.repository.BranchLocationRepository;
@@ -31,9 +32,16 @@ public class BranchLocationServiceImpl implements BranchLocationService {
     @Override
     public BranchLocation createBranchLocation(BranchLocation location) throws CustomException {
         try {
-            return locationRepository.save(location);
+            if(!locationRepository.existsByLocationName(location.getLocationName())) {
+                return locationRepository.save(location);
+            }
+            else {
+                throw new LocationAlreadyExistsException("The location is already exists");
+            }
         } catch (DataAccessException e) {
             throw new CustomException("Failed to create location.", e);
+        } catch (LocationAlreadyExistsException e) {
+            throw new RuntimeException("The location is already exists",e);
         }
     }
 

@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
@@ -49,6 +50,16 @@ public class OrganizationServiceImpl implements OrganizationService {
         } catch (DataAccessException e) {
             throw new CustomException("Failed to fetch organization.", e);
         }
+    }
+
+    /**
+     * Retrieves all organizations.
+     * @return A list of all organizations.
+     * @throws CustomException If there is an issue fetching the organizations.
+     */
+    @Override
+    public List<Organization> getAllOrganizations() throws CustomException {
+        return organizationRepository.findAll();
     }
 
     /**

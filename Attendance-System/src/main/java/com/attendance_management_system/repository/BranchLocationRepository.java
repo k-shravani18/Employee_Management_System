@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BranchLocationRepository extends JpaRepository<BranchLocation, Long> {
+    boolean existsByLocationName(String locationName);
 }

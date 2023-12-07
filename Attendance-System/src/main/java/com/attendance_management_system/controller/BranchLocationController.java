@@ -26,7 +26,7 @@ public class BranchLocationController {
      */
     @PostMapping("/add")
     public ResponseEntity<BranchLocation> createBranchLocation(
-            @RequestBody BranchLocation location) throws CustomException {
+            @RequestBody BranchLocation location) throws CustomException, RuntimeException {
         BranchLocation createdBranchLocation = locationService.createBranchLocation(location);
         return new ResponseEntity<>(createdBranchLocation, HttpStatus.CREATED);
     }

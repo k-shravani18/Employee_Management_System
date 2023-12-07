@@ -26,7 +26,7 @@ public class DepartmentController {
      */
     @PostMapping("/add")
     public ResponseEntity<Department> createDepartment(
-            @RequestBody Department department) throws CustomException {
+            @RequestBody Department department) throws CustomException, RuntimeException {
         Department createdDepartment = departmentService.createDepartment(department);
         return new ResponseEntity<>(createdDepartment, HttpStatus.CREATED);
     }

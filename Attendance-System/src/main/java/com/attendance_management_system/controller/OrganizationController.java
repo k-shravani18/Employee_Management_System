@@ -1,5 +1,6 @@
 package com.attendance_management_system.controller;
 
+import com.attendance_management_system.model.Department;
 import com.attendance_management_system.model.Organization;
 import com.attendance_management_system.exceptions.CustomException;
 import com.attendance_management_system.service.OrganizationService;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/organization")
@@ -40,6 +43,17 @@ public class OrganizationController {
     public ResponseEntity<Organization> getOrganization(@PathVariable Long organizationId) throws CustomException {
         Organization organization = organizationService.getOrganizationById(organizationId);
         return new ResponseEntity<>(organization, HttpStatus.OK);
+    }
+
+    /**
+     * Retrieves all organizations.
+     * @return List of all organizations.
+     * @throws CustomException If there is an issue fetching the organization.
+     */
+    @GetMapping("/getOrganizations")
+    public ResponseEntity<List<Organization>> getAllOrganizations() throws CustomException {
+        List<Organization> organizations = organizationService.getAllOrganizations();
+        return new ResponseEntity<>(organizations, HttpStatus.OK);
     }
 
     /**

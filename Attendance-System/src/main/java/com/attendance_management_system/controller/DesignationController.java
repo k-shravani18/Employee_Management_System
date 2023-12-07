@@ -1,5 +1,6 @@
 package com.attendance_management_system.controller;
 
+import com.attendance_management_system.model.Department;
 import com.attendance_management_system.model.Designation;
 import com.attendance_management_system.exceptions.CustomException;
 import com.attendance_management_system.service.DesignationService;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/designations")
 @CrossOrigin("*")
@@ -23,7 +27,7 @@ public class DesignationController {
      */
     @PostMapping("/add")
     public ResponseEntity<Designation> createDesignation(
-            @RequestBody Designation designation) throws CustomException {
+            @RequestBody Designation designation) throws CustomException, RuntimeException {
         Designation createdDesignation = designationService.createDesignation(designation);
         return new ResponseEntity<>(createdDesignation, HttpStatus.CREATED);
     }
@@ -39,6 +43,17 @@ public class DesignationController {
     public ResponseEntity<Designation> getDesignation(@PathVariable Long designationId) throws CustomException {
         Designation designation = designationService.getDesignationById(designationId);
         return new ResponseEntity<>(designation, HttpStatus.OK);
+    }
+
+    /**
+     * Retrieves all designations.
+     * @return List of all designations.
+     * @throws CustomException If there is an issue fetching the designations.
+     */
+    @GetMapping("/getDesignations")
+    public ResponseEntity<List<Designation>> getAllDesignations() throws CustomException {
+        List<Designation> designations = designationService.getAllDesignations();
+        return new ResponseEntity<>(designations, HttpStatus.OK);
     }
 
     /**

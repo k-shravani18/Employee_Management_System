@@ -1,5 +1,7 @@
 package com.attendance_management_system.service.serviceimpl;
 
+import com.attendance_management_system.exceptions.DepartmentAlreadyExistsException;
+import com.attendance_management_system.exceptions.DesignationAlreadyExistsException;
 import com.attendance_management_system.model.Designation;
 import com.attendance_management_system.exceptions.CustomException;
 import com.attendance_management_system.repository.DesignationRepository;
@@ -9,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 public class DesignationServiceImpl implements DesignationService {
@@ -29,9 +32,15 @@ public class DesignationServiceImpl implements DesignationService {
     @Override
     public Designation createDesignation(Designation designation) throws CustomException {
         try {
-            return designationRepository.save(designation);
+            if(!designationRepository.existsByDesignationName(designation.getDesignationName())){
+                return designationRepository.save(designation);}
+            else {
+                throw new DesignationAlreadyExistsException("The designation is already exists");
+            }
         } catch (DataAccessException e) {
             throw new CustomException("Failed to create designation.", e);
+        } catch (DesignationAlreadyExistsException e) {
+            throw new RuntimeException("The designation is already exists",e);
         }
     }
 
@@ -50,6 +59,16 @@ public class DesignationServiceImpl implements DesignationService {
         } catch (DataAccessException e) {
             throw new CustomException("Failed to fetch designation.", e);
         }
+    }
+
+    /**
+     * Retrieves all designations.
+     * @return A list of all designations.
+     * @throws CustomException If there is an issue fetching the designations.
+     */
+    @Override
+    public List<Designation> getAllDesignations() throws CustomException {
+        return designationRepository.findAll();
     }
 
     /**
