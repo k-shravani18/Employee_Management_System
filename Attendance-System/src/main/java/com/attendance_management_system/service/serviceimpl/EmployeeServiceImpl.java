@@ -119,15 +119,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * Retrieves a list of all reporting managers.
-     * @return The list of all reporting managers.
+     * @return The list of all reporting managers name.
      * @throws CustomException If there is an issue fetching the reporting managers.
      */
     @Override
-    public List<Employee> getAllReportingManagers() throws CustomException {
+    public List<String> getAllReportingManagers() throws CustomException {
         try {
             return employeeRepository.findAll()
                     .stream()
                     .filter(Employee::getIsReportingManager)
+                    .map(employee -> employee.getFirstName() + " " + employee.getLastName())
                     .collect(Collectors.toList());
         } catch (DataAccessException e) {
             throw new CustomException("Failed to fetch reporting managers.", e);
@@ -169,7 +170,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * Method to generate a custom user ID in three_digit format,
        it retrieves the current value of the next employee ID and updates the next employeeID
-     * @return
+     * @return custom employeeId.
      */
     public String generateCustomEmployeeId() throws CustomException {
         try {

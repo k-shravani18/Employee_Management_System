@@ -4,6 +4,7 @@ import com.attendance_management_system.model.Department;
 import com.attendance_management_system.exceptions.CustomException;
 import com.attendance_management_system.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,16 @@ public class DepartmentController {
      * @throws CustomException If there is an issue creating the department.
      */
     @PostMapping("/add")
-    public ResponseEntity<Department> createDepartment(
-            @RequestBody Department department) throws CustomException, RuntimeException {
-        Department createdDepartment = departmentService.createDepartment(department);
-        return new ResponseEntity<>(createdDepartment, HttpStatus.CREATED);
+    public ResponseEntity<String> createDepartment(
+            @RequestBody Department department) throws CustomException,RuntimeException {
+        try{
+            Department createdDepartment = departmentService.createDepartment(department);
+            return new ResponseEntity<>("Department Created Successfully", HttpStatus.CREATED);
+        }catch (CustomException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+        }
     }
 
     /**

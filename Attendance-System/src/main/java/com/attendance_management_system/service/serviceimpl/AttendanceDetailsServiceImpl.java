@@ -66,7 +66,7 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
                     attendanceDetails.setCheckInLocation(location);
                     attendanceDetails.setCheckInTime(LocalDateTime.now());
                     attendanceDetails.setAttendance(attendance);
-                    attendanceDetails.setStatus(AttendanceStatus.PRESENT);
+                    attendanceDetails.setStatus(AttendanceStatus.CHECKED_IN);
                     attendanceDetailsRepository.save(attendanceDetails);
                 } else {
                     throw new AlreadyCheckedInException("You have already checked in today");
@@ -100,6 +100,7 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
 
             attendanceDetails.setCheckOutLocation(location);
             attendanceDetails.setCheckOutTime(LocalDateTime.now());
+            attendanceDetails.setStatus(AttendanceStatus.CHECKED_OUT);
 
             Duration timeDifference = calculateTimeDifference(
                     attendanceDetails.getCheckInTime(), LocalDateTime.now());
@@ -131,7 +132,7 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
             if (attendanceDetails.getCheckOutTime() == null && attendanceDetails.getCheckInTime() != null) {
                 AttendanceTime attendanceTime = new AttendanceTime();
                 attendanceTime.setTime(attendanceDetails.getCheckInTime());
-                attendanceTime.setStatus("IN");
+                attendanceTime.setStatus(attendanceDetails.getStatus().toString());
                 return attendanceTime;
 
             } else if (attendanceDetails.getCheckOutTime() != null) {
@@ -144,14 +145,14 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
                 LocalDate today = LocalDate.now();
                 AttendanceTime attendanceTime = new AttendanceTime();
                 attendanceTime.setTime(LocalDateTime.of(today, time));
-                attendanceTime.setStatus("PRESENT");
+                attendanceTime.setStatus(attendanceDetails.getStatus().toString());
                 return attendanceTime;
             } else {
                 LocalDate today = LocalDate.now();
                 LocalTime midnight = LocalTime.MIDNIGHT;
                 AttendanceTime attendanceTime = new AttendanceTime();
                 attendanceTime.setTime(LocalDateTime.of(today, midnight));
-                attendanceTime.setStatus("OUT");
+                attendanceTime.setStatus(attendanceDetails.getStatus().toString());
                 return attendanceTime;
             }
         } catch (DataAccessException e) {

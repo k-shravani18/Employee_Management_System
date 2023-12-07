@@ -15,6 +15,5 @@ public interface EmployeeService {
     List<Employee> getAllEmployees() throws CustomException;
     Employee updateEmployee(String  email, Employee employee) throws CustomException;
     void deleteEmployee(String  employeeId) throws CustomException;
-
-    List<Employee> getAllReportingManagers() throws CustomException;
+    List<String > getAllReportingManagers() throws CustomException;
 }

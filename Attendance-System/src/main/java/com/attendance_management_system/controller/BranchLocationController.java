@@ -25,10 +25,16 @@ public class BranchLocationController {
      * @throws CustomException If there is an issue creating the branch location.
      */
     @PostMapping("/add")
-    public ResponseEntity<BranchLocation> createBranchLocation(
-            @RequestBody BranchLocation location) throws CustomException, RuntimeException {
-        BranchLocation createdBranchLocation = locationService.createBranchLocation(location);
-        return new ResponseEntity<>(createdBranchLocation, HttpStatus.CREATED);
+    public ResponseEntity<String > createBranchLocation(
+            @RequestBody BranchLocation location) throws CustomException,RuntimeException {
+        try{
+            BranchLocation branchLocation = locationService.createBranchLocation(location);
+            return new ResponseEntity<>("Location Created Successfully", HttpStatus.CREATED);
+        }catch (CustomException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+        }
     }
 
     /**

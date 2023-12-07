@@ -1,5 +1,5 @@
 package com.attendance_management_system.constants;
 
 public enum AttendanceStatus {
-    PRESENT, ABSENT, LEAVE, OUT
+    CHECKED_IN, CHECKED_OUT, ABSENT, LEAVE, OUT
 }

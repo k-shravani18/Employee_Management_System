@@ -76,7 +76,7 @@ public class ScheduledServiceImpl implements ScheduledService {
      * @throws CustomException If there is an issue fetching data or creating attendance entries.
      */
     @Override
-    @Scheduled(cron = "0 31 10 * * MON-FRI")
+    @Scheduled(cron = "0 49 11 * * MON-FRI")
     public void createEmployeeAttendance() throws CustomException {
         try {
             if (!checkHolidays()) {
@@ -154,6 +154,7 @@ public class ScheduledServiceImpl implements ScheduledService {
                         attendanceDetails.setCheckOutTime(LocalDateTime.now());
                         attendanceDetails.setCheckOutLocation("Nil");
                         attendanceDetails.setTotalTime(510);
+                        attendanceDetails.setStatus(AttendanceStatus.CHECKED_OUT);
                         attendanceDetailsRepository.save(attendanceDetails);
                     }
                 });
@@ -195,7 +196,7 @@ public class ScheduledServiceImpl implements ScheduledService {
                     AttendanceDetails attendanceDetails = getAttendanceDetails(employee);
 
                     if (attendanceDetails.getCheckOutTime() == null &&
-                            attendanceDetails.getStatus().equals(AttendanceStatus.PRESENT)) {
+                            attendanceDetails.getStatus().equals(AttendanceStatus.CHECKED_IN)) {
                         emailService.sendReminderEmailEvening(employee);
                     }
                 });

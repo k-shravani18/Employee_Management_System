@@ -25,10 +25,16 @@ public class DesignationController {
      * @throws CustomException If there is an issue creating the designation.
      */
     @PostMapping("/add")
-    public ResponseEntity<Designation> createDesignation(
-            @RequestBody Designation designation) throws CustomException, RuntimeException {
-        Designation createdDesignation = designationService.createDesignation(designation);
-        return new ResponseEntity<>(createdDesignation, HttpStatus.CREATED);
+    public ResponseEntity<String> createDesignation(
+            @RequestBody Designation designation) throws CustomException,RuntimeException {
+        try{
+            Designation createdDesignation = designationService.createDesignation(designation);
+            return new ResponseEntity<>("Designation Created Successfully", HttpStatus.CREATED);
+        }catch (CustomException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+        }
     }
 
     /**

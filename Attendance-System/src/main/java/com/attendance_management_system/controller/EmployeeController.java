@@ -59,8 +59,8 @@ public class EmployeeController {
      * @throws CustomException if there is an issue fetching reporting managers
      */
     @GetMapping("/getReportingManagers")
-    public ResponseEntity<List<Employee>> getAllReportingManagers() throws CustomException {
-        List<Employee> employees = employeeService.getAllReportingManagers();
+    public ResponseEntity<List<String >> getAllReportingManagers() throws CustomException {
+        List<String > employees = employeeService.getAllReportingManagers();
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
