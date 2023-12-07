@@ -1,6 +1,5 @@
 package com.attendance_management_system.service.serviceimpl;
 
-import com.attendance_management_system.exceptions.DepartmentAlreadyExistsException;
 import com.attendance_management_system.exceptions.DesignationAlreadyExistsException;
 import com.attendance_management_system.model.Designation;
 import com.attendance_management_system.exceptions.CustomException;
@@ -68,7 +67,11 @@ public class DesignationServiceImpl implements DesignationService {
      */
     @Override
     public List<Designation> getAllDesignations() throws CustomException {
-        return designationRepository.findAll();
+        try{
+            return designationRepository.findAll();
+        }catch (DataAccessException e) {
+            throw new CustomException("Failed to fetch designations.", e);
+        }
     }
 
     /**

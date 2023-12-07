@@ -1,6 +1,5 @@
 package com.attendance_management_system.controller;
 
-import com.attendance_management_system.model.Department;
 import com.attendance_management_system.model.Designation;
 import com.attendance_management_system.exceptions.CustomException;
 import com.attendance_management_system.service.DesignationService;

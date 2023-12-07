@@ -59,7 +59,12 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     public List<Organization> getAllOrganizations() throws CustomException {
-        return organizationRepository.findAll();
+        try{
+            return organizationRepository.findAll();
+        }catch (DataAccessException e) {
+            throw new CustomException("Failed to fetch organizations.", e);
+        }
+
     }
 
     /**
