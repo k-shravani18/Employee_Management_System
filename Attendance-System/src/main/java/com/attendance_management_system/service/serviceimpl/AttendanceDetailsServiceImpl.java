@@ -61,12 +61,12 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
                 AttendanceDetails attendanceDetails =
                         attendanceDetailsRepository.findByEmployeeAndAttendance(employee, attendance);
 
-                if (attendanceDetails.getStatus().equals(AttendanceStatus.OUT)) {
+                if (attendanceDetails.getStatus().equals(AttendanceStatus.AWAY)) {
                     attendanceDetails.setEmployee(employee);
                     attendanceDetails.setCheckInLocation(location);
                     attendanceDetails.setCheckInTime(LocalDateTime.now());
                     attendanceDetails.setAttendance(attendance);
-                    attendanceDetails.setStatus(AttendanceStatus.CHECKED_IN);
+                    attendanceDetails.setStatus(AttendanceStatus.IN);
                     attendanceDetailsRepository.save(attendanceDetails);
                 } else {
                     throw new AlreadyCheckedInException("You have already checked in today");
@@ -100,7 +100,7 @@ public class AttendanceDetailsServiceImpl implements AttendanceDetailsService {
 
             attendanceDetails.setCheckOutLocation(location);
             attendanceDetails.setCheckOutTime(LocalDateTime.now());
-            attendanceDetails.setStatus(AttendanceStatus.CHECKED_OUT);
+            attendanceDetails.setStatus(AttendanceStatus.OUT);
 
             Duration timeDifference = calculateTimeDifference(
                     attendanceDetails.getCheckInTime(), LocalDateTime.now());

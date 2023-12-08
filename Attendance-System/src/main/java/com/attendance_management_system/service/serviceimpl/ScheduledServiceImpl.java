@@ -53,7 +53,7 @@ public class ScheduledServiceImpl implements ScheduledService {
      * marking it as a working day, weekend, or holiday.
      */
     @Override
-    @Scheduled(cron = "0 30 10 * * ?")
+    @Scheduled(cron = "0 26 10 * * ?")
     public void createAttendanceLog() {
         Attendance attendance = new Attendance();
         LocalDate date = LocalDate.now();
@@ -76,7 +76,7 @@ public class ScheduledServiceImpl implements ScheduledService {
      * @throws CustomException If there is an issue fetching data or creating attendance entries.
      */
     @Override
-    @Scheduled(cron = "0 49 11 * * MON-FRI")
+    @Scheduled(cron = "0 27 10 * * MON-FRI")
     public void createEmployeeAttendance() throws CustomException {
         try {
             if (!checkHolidays()) {
@@ -88,7 +88,7 @@ public class ScheduledServiceImpl implements ScheduledService {
                     if (checkLeave(employee)) {
                         attendance.setStatus(AttendanceStatus.LEAVE);
                     } else {
-                        attendance.setStatus(AttendanceStatus.OUT);
+                        attendance.setStatus(AttendanceStatus.AWAY);
                     }
 
                     attendanceDetailsRepository.save(attendance);
@@ -154,7 +154,7 @@ public class ScheduledServiceImpl implements ScheduledService {
                         attendanceDetails.setCheckOutTime(LocalDateTime.now());
                         attendanceDetails.setCheckOutLocation("Nil");
                         attendanceDetails.setTotalTime(510);
-                        attendanceDetails.setStatus(AttendanceStatus.CHECKED_OUT);
+                        attendanceDetails.setStatus(AttendanceStatus.OUT);
                         attendanceDetailsRepository.save(attendanceDetails);
                     }
                 });
@@ -196,7 +196,7 @@ public class ScheduledServiceImpl implements ScheduledService {
                     AttendanceDetails attendanceDetails = getAttendanceDetails(employee);
 
                     if (attendanceDetails.getCheckOutTime() == null &&
-                            attendanceDetails.getStatus().equals(AttendanceStatus.CHECKED_IN)) {
+                            attendanceDetails.getStatus().equals(AttendanceStatus.IN)) {
                         emailService.sendReminderEmailEvening(employee);
                     }
                 });
@@ -224,7 +224,7 @@ public class ScheduledServiceImpl implements ScheduledService {
         return attendanceDetailsRepository.findAll()
                 .stream()
                 .filter(attendance -> (attendance.getAttendance().getDate().equals(LocalDate.now()))
-                        && attendance.getStatus().equals(AttendanceStatus.OUT))
+                        && attendance.getStatus().equals(AttendanceStatus.AWAY))
                 .collect(Collectors.toList());
     }
 
@@ -256,6 +256,6 @@ public class ScheduledServiceImpl implements ScheduledService {
     private boolean employeeStatusCheck(Employee employee) {
         return attendanceDetailsRepository.findByEmployeeAndAttendance(
                 employee, attendanceRepository.findByDate(LocalDate.now()))
-                .getStatus().equals(AttendanceStatus.OUT);
+                .getStatus().equals(AttendanceStatus.AWAY);
     }
 }

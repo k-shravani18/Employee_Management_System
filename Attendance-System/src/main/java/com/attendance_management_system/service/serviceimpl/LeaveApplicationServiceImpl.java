@@ -79,6 +79,7 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 
                 if (availableLeaves >= noOfDays) {
                     leaveApplication.setNoOfDays(noOfDays);
+                    leaveApplication.setStatus(LeaveStatus.PENDING.getValue());
                     return leaveApplicationRepository.save(leaveApplication);
                 } else {
                     throw new InsufficientLeavesException("Insufficient leaves");
@@ -177,6 +178,20 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
                             leaveApplication.getEmployee().getReportingManager()
                                     .equalsIgnoreCase(
                                             manager.getFirstName() + " " + manager.getLastName()))
+                    .toList();
+        } catch (DataAccessException e) {
+            throw new CustomException("Failed to fetch leave applications.", e);
+        }
+    }
+
+    @Override
+    public List<LeaveApplication> getLeaveApplicationsOfEmployee(String email) throws CustomException {
+        try {
+            Employee employee = employeeRepository.findByEmailId(email);
+            return leaveApplicationRepository.findAll()
+                    .stream()
+                    .filter(leaveApplication ->
+                            leaveApplication.getEmployee().equals(employee))
                     .toList();
         } catch (DataAccessException e) {
             throw new CustomException("Failed to fetch leave applications.", e);

@@ -87,6 +87,18 @@ public class LeaveApplicationController {
     }
 
     /**
+     * Endpoint to get details of leave applications of particular employee
+     * @return ResponseEntity with leave applications
+     * @throws CustomException if there is an issue fetching leave applications details
+     */
+    @GetMapping("/fetchLeaveApplications/{email:.+}")
+    public ResponseEntity<List<LeaveApplication>> getLeaveApplicationsOfEmployee(
+            @PathVariable String email) throws CustomException {
+        List<LeaveApplication> leaveApplications = leaveApplicationService.getLeaveApplicationsOfEmployee(email);
+        return new ResponseEntity<>(leaveApplications, HttpStatus.OK);
+    }
+
+    /**
      * Endpoint to get details of all leave applications for a specific manager
      * @param email Manager email
      * @return ResponseEntity with a list of leave applications for the manager
